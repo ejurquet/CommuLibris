@@ -1,0 +1,6 @@
+com/example/CommuLibris/HelloApplication.java
+ com.example.CommuLibris.HelloApplication
+com/example/CommuLibris/HelloServlet.java
+ com.example.CommuLibris.HelloServlet
+com/example/CommuLibris/HelloResource.java
+ com.example.CommuLibris.HelloResource
