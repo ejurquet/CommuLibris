@@ -5,7 +5,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
 /**
- * Classe controlant la communication avec notre page web.
+ * Classe contrôlant la communication avec notre page web.
  * @author Elio Saboureau
  * @version 1.0
  */
