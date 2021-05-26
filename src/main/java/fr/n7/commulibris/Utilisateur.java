@@ -22,13 +22,13 @@ public class Utilisateur {
     private List<Livre> livres; // Livres de l'utilisateur (bidirectionnelle)
 
     @OneToMany(mappedBy="source")
-    private List<Avis> avisDonnes; // Avis donnés
+    private List<Avis> avisDonnes; // Avis donnés (bidirectionnelle)
 
     @OneToMany(mappedBy="cible")
-    private List<Avis> avisRecu; // Avis reçus
+    private List<Avis> avisRecu; // Avis reçus (bidirectionnelle)
 
     @ManyToMany(mappedBy="participants")
-    private List<Conversation> conversations; // Conversations
+    private List<Conversation> conversations; // Conversations (bidirectionnelle)
 
     /**
      * Constructeur vide de la classe.

@@ -1,9 +1,6 @@
 package fr.n7.commulibris;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -22,6 +19,9 @@ public class Conversation {
 
     @ManyToMany
     private List<Utilisateur> participants; // Liste des utilisateurs participant (bidirectionnelle)
+
+    @OneToMany
+    private List<Message> messages; // Liste des messages
 
     /**
      * Constructeur vide de la classe.
@@ -74,6 +74,32 @@ public class Conversation {
      */
     public void setParticipants(List<Utilisateur> participants) {
         this.participants = participants;
+    }
+
+    /**
+     * Obtenir les messages.
+     * @return liste des messages
+     */
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    /**
+     * Modifier les messages.
+     * @param messages liste des messages
+     */
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    /**
+     * Ajouter un message.
+     * @param message message
+     */
+    public void addMessage(Message message) {
+        List<Message> messages = this.getMessages(); // Ajout par les getter/setter pour assurer la mise à jour
+        messages.add(message);
+        this.setMessages(messages);
     }
 
 }
