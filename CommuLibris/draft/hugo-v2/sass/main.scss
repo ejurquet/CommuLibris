@@ -1,0 +1,17 @@
+@import "theme";
+
+// Reset the styles
+@import "reset";
+
+@import "icons";
+@import "body";
+@import "header";
+@import "search_box";
+@import "pagination";
+
+// Pages
+//@import "book";
+@import "book_list";
+
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');

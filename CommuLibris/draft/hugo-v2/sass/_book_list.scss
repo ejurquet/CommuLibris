@@ -1,0 +1,48 @@
+article.book_list {
+
+	$height: 150px;
+
+	margin: 1rem 0;
+
+	& .search_result {
+		margin: 1rem;
+
+		& i {
+			font-style: italic;
+		}
+	}
+
+	& .book {
+
+		display: flex;
+		margin: 1rem;
+
+		& img {
+			display: block;
+			height: $height;
+			margin-right: 1rem;
+			border-radius: $radius;
+		}
+
+		& .info {
+
+			line-height: 1.5;
+
+			& h2 {
+				font-size: 1.5rem;
+				font-weight: bold;
+			}
+
+			& p {
+				text-align: justify;
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+			}
+
+		}
+
+	}
+
+}
