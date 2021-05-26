@@ -4,7 +4,6 @@ import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -66,6 +65,13 @@ public class Facade {
         this.em.persist(l); // Persistence
     }
 
+    /**
+     * Ajouter un avis.
+     * @param source identifiant de l'utilisateur source
+     * @param cible identifiant de l'utilisateur cible
+     * @param note note
+     * @param texte texte
+     */
     public void addAvis(int source, int cible, int note, String texte) {
         Avis a = new Avis(); // Création de l'objet
         a.setSource(this.getUtilisateurById(source));
@@ -76,6 +82,11 @@ public class Facade {
         this.em.persist(a); // Persistence
     }
 
+    /**
+     * Ajouter une conversation.
+     * @param participants identifiants des participants
+     * @param nom nom
+     */
     public void addConversation(int[] participants, String nom) {
         Conversation c = new Conversation(); // Création de l'objet
 
@@ -92,6 +103,12 @@ public class Facade {
         this.em.persist(c); // Persistence
     }
 
+    /**
+     * Ajouter un message a une conversation.
+     * @param conversation identifiant de la conversation
+     * @param auteur identifiant de l'auteur
+     * @param texte texte
+     */
     public void addMessage(int conversation, int auteur, String texte) {
         Message m = new Message(); // Création de l'objet
         m.setAuteur(this.getUtilisateurById(auteur));
