@@ -1,0 +1,22 @@
+header {
+
+	$height: 75px;
+
+	display: flex;
+	justify-content: space-between;
+
+	& .logo {
+		height: $height;
+		padding: 15px;
+		position: relative;
+		top: -6px;
+	}
+
+	& .menu_icon {
+		display: block;
+		height: $height;
+		width: $height;
+		padding: 15px;
+	}
+
+}

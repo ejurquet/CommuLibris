@@ -1,0 +1,62 @@
+body {
+	//background-color: #8EC5FC;
+	//background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+
+	background: #daaa63;
+}
+
+article.book {
+
+	& h2, h3 {
+		text-align: center;
+		margin: 1rem 0;
+	}
+
+	& h2 {
+		font-size: 2rem;
+		font-weight: bold;
+	}
+
+	& h3 {
+		font-size: 1rem;
+		color: $black;
+	}
+
+	& img {
+		display: block;
+		margin: 1rem auto;
+		width: 100%;
+		max-width: 200px;
+		border-radius: $radius;
+	}
+
+	& .bottom_desc {
+
+		padding: 1rem;
+		background-color: $background;
+
+		& h2 {
+			font-size: 1.5rem;
+			text-align: left;
+		}
+
+		& p {
+			text-align: justify;
+			line-height: 1.5;
+			margin: 1rem 0;
+		}
+
+		& button {
+			display: block;
+			margin: 1rem auto;
+			padding: 1rem 2rem;
+			background-color: $green;
+			color: white;
+			font-size: 1rem;
+			font-weight: bold;
+			border-radius: $radius;
+		}
+
+	}
+
+}
