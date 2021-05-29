@@ -21,7 +21,7 @@ public class Conversation {
     private List<Utilisateur> participants; // Liste des utilisateurs participant (bidirectionnelle)
 
     @OneToMany
-    private List<Message> messages; // Liste des messages
+    private List<Message> messages; // Liste des messages (unidirectionelle)
 
     /**
      * Constructeur vide de la classe.

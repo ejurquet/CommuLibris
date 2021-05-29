@@ -26,7 +26,7 @@ public class Bnf {
      * Rechercher un livre par son nom
      * @param nom nom
      */
-    public void saerchForNom(String nom) {
+    public void searchForNom(String nom) {
         ParameterizedSparqlString p = new ParameterizedSparqlString();
     }
 
