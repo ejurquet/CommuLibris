@@ -19,7 +19,7 @@ targetCompatibility = 1.8
 
 dependencies {
     compileOnly('javax:javaee-api:8.0.1')
-    compileOnly('org.apache.jena:jena-arq:4.0.0')
+    compileOnly('org.apache.jena:jena-arq:3.17.0')
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
