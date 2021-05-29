@@ -3,6 +3,7 @@ package fr.n7.commulibris;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,14 @@ import java.util.List;
  */
 @Singleton
 public class Facade {
+
+    // Requêtes
+    private final static String ALL_LIVRES_QUERY = "FROM Livre";
+    private final static String ALL_UTILISATEURS_QUERY = "FROM Utilisateur";
+    private final static String LIVRES_NAME_QUERY = "FROM Livre WHERE nom=\"%%s%\"";
+    private final static String LIVRES_AUTHOR_QUERY = "FROM Livre WHERE auteur=\"%%s%\"";
+    private final static String COUNT_LIVRES_QUERY = "SELECT count(1) FROM Livre";
+    private final static String COUNT_UTILISATEURS_QUERY = "SELECT count(1) FROM Utilisateur";
 
     @PersistenceContext
     private EntityManager em; // Gestionnaire de la base de donnée
@@ -119,5 +128,40 @@ public class Facade {
 
         this.em.persist(m); // Persistence
     }
+
+    /**
+     * Obtenir tous les livres.
+     * @return liste des livres
+     */
+    public List<Livre> getAllLivres() {
+        TypedQuery<Livre> query = this.em.createQuery(ALL_LIVRES_QUERY, Livre.class);
+        return query.getResultList();
+    }
+
+    /**
+     * Obtenir tous les utilisateurs.
+     * @return liste des utilisateurs
+     */
+    public List<Utilisateur> getAllUtilisateurs() {
+        TypedQuery<Utilisateur> query = this.em.createQuery(ALL_UTILISATEURS_QUERY, Utilisateur.class);
+        return query.getResultList();
+    }
+
+    /**
+     * Obtenir le nombre de livres.
+     * @return nombre de livres
+     */
+    public int getLivresCount() {
+        return (int) this.em.createNativeQuery(COUNT_LIVRES_QUERY).getSingleResult();
+    }
+
+    /**
+     * Obtenir le nombre d'utilisateurs.
+     * @return nombre d'utilisateurs
+     */
+    public int getUtilisateursCount() {
+        return (int) this.em.createNativeQuery(COUNT_UTILISATEURS_QUERY).getSingleResult();
+    }
+
 
 }
