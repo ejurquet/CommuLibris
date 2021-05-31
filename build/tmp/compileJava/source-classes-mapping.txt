@@ -2,5 +2,22 @@ com/example/CommuLibris/HelloApplication.java
  com.example.CommuLibris.HelloApplication
 com/example/CommuLibris/HelloServlet.java
  com.example.CommuLibris.HelloServlet
+fr/n7/commulibris/Avis.java
+ fr.n7.commulibris.Avis
+fr/n7/commulibris/Message.java
+ fr.n7.commulibris.Message
+fr/n7/commulibris/Conversation.java
+ fr.n7.commulibris.Conversation
+fr/n7/commulibris/Utilisateur.java
+ fr.n7.commulibris.Utilisateur
+fr/n7/commulibris/Livre.java
+ fr.n7.commulibris.Livre
 com/example/CommuLibris/HelloResource.java
  com.example.CommuLibris.HelloResource
+fr/n7/commulibris/Facade.java
+ fr.n7.commulibris.Facade
+fr/n7/commulibris/Bnf.java
+ fr.n7.commulibris.Bnf
+fr/n7/commulibris/Controler.java
+ fr.n7.commulibris.Controler
+ fr.n7.commulibris.Controler$Action
