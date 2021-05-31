@@ -2,7 +2,7 @@
 <article class="book">
 
     <section class="top_desc">
-        <img src="img/book5.jpg" alt="" class="cover">
+        <img src="../img/book5.jpg" alt="" class="cover">
 
         <h2>Vivre sans</h2>
         <h3>Frédéric Lordon</h3>

@@ -11,7 +11,7 @@
     <p class="search_result">Résultat de votre recherche : <i>Vivre sans</i></p>
 
     <section class="book">
-        <img src="img/book5.jpg" alt="" class="cover">
+        <img src="../img/book5.jpg" alt="" class="cover">
 
         <div class="info">
             <h2>Vivre sans</h2>
@@ -21,7 +21,7 @@
     </section>
 
     <section class="book">
-        <img src="img/book5.jpg" alt="" class="cover">
+        <img src="../img/book5.jpg" alt="" class="cover">
 
         <div class="info">
             <h2>Vivre sans</h2>
@@ -31,7 +31,7 @@
     </section>
 
     <section class="book">
-        <img src="img/book5.jpg" alt="" class="cover">
+        <img src="../img/book5.jpg" alt="" class="cover">
 
         <div class="info">
             <h2>Vivre sans</h2>
@@ -41,7 +41,7 @@
     </section>
 
     <section class="book">
-        <img src="img/book5.jpg" alt="" class="cover">
+        <img src="../img/book5.jpg" alt="" class="cover">
 
         <div class="info">
             <h2>Vivre sans</h2>
