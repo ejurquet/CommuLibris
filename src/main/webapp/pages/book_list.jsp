@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@include file="begin.jsp"%>
 <label class="search_box">
     <svg viewBox="0 0 20 20">

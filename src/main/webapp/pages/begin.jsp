@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
@@ -10,14 +10,19 @@
 <body>
 
 <header>
+    <!-- return -->
     <button class="menu_icon" id="menu-toggle">
-        <svg><use xlink:href="icons/icons.svg#back"></use></svg>
+        <svg><use xlink:href="../icons/icons.svg#back"></use></svg>
+
     </button>
 
+    <!-- logo -->
     <img class="logo" src="../img/logo.png" alt="">
 
+    <!-- menu -->
     <button class="menu_icon" id="menu-toggle">
-        <svg><use xlink:href="icons/icons.svg#menu"></use></svg>
+        <svg><use xlink:href="../icons/icons.svg#menu"></use></svg>
+
     </button>
 </header>
 

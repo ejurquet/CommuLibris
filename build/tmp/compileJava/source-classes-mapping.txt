@@ -16,8 +16,8 @@ fr/n7/commulibris/Utilisateur.java
  fr.n7.commulibris.Utilisateur
 com/example/CommuLibris/HelloResource.java
  com.example.CommuLibris.HelloResource
+fr/n7/commulibris/Message.java
+ fr.n7.commulibris.Message
 fr/n7/commulibris/Controler.java
  fr.n7.commulibris.Controler
  fr.n7.commulibris.Controler$Action
-fr/n7/commulibris/Message.java
- fr.n7.commulibris.Message

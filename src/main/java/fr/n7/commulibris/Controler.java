@@ -4,6 +4,7 @@ import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -188,5 +189,14 @@ public class Controler extends HttpServlet {
             e.printStackTrace();
         }
     }
+
+    /*
+    // doFilter
+    public void doFilter(HttpServletRequest request, HttpServletResponse response, HttpFilter chain) throws IOException, ServletException {
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        doFilter(request, response, chain);
+    }*/
 
 }
