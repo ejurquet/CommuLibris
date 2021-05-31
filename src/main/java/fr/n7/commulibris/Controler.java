@@ -71,7 +71,7 @@ public class Controler extends HttpServlet {
         req.setAttribute("livres", livres);
 
         // Envoyer la réponse
-        RequestDispatcher rd = req.getRequestDispatcher("page.jsp"); // Redirection vers cette page
+        RequestDispatcher rd = req.getRequestDispatcher("../../webapp/pages/book_list.jsp"); // Redirection vers cette page
         rd.forward(req, rep);
     };
 
@@ -90,7 +90,7 @@ public class Controler extends HttpServlet {
         req.setAttribute("livre", livre);
 
         // Envoyer la réponse
-        RequestDispatcher rd = req.getRequestDispatcher("page.jsp"); // Redirection vers cette page
+        RequestDispatcher rd = req.getRequestDispatcher("../../webapp/pages/book.jsp"); // Redirection vers cette page
         rd.forward(req, rep);
     };
 
@@ -113,7 +113,7 @@ public class Controler extends HttpServlet {
         // TODO : un peu de vérification et renvoi vers une page d'erreur
 
         // Envoyer la réponse
-        RequestDispatcher rd = req.getRequestDispatcher("success.html"); // Redirection vers cette page
+        RequestDispatcher rd = req.getRequestDispatcher("../../webapp/pages/book_add.jsp"); // Redirection vers cette page
         rd.forward(req, rep);
     };
 
@@ -128,7 +128,7 @@ public class Controler extends HttpServlet {
         req.setAttribute("livres", livres);
 
         // Envoyer la réponse
-        RequestDispatcher rd = req.getRequestDispatcher("page.jsp"); // Redirection vers cette page
+        RequestDispatcher rd = req.getRequestDispatcher("../../webapp/pages/book_list.jsp"); // Redirection vers cette page
         rd.forward(req, rep);
     };
 
@@ -143,7 +143,7 @@ public class Controler extends HttpServlet {
         req.setAttribute("livres", livres);
 
         // Envoyer la réponse
-        RequestDispatcher rd = req.getRequestDispatcher("page.jsp"); // Redirection vers cette page
+        RequestDispatcher rd = req.getRequestDispatcher("../../webapp/pages/book_list.jsp"); // Redirection vers cette page
         rd.forward(req, rep);
     };
 
