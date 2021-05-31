@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,10 @@ public class Controler extends HttpServlet {
     // Descripteurs
     private final static String ACTION_PARAMETER = "action";
     private final static String ACTION_GET_LIVRES = "getLivres";
+    private final static String ACTION_GET_LIVRE = "getLivre";
+    private final static String ACTION_GET_LIVRES_NOM = "getLivresById";
+    private final static String ACTION_GET_LIVRES_AUTEUR = "getLivresByAuteur";
+    private final static String ACTION_ADD_LIVRE = "addLivre";
 
     /**
      * Communication avec nos entités.
@@ -54,9 +59,84 @@ public class Controler extends HttpServlet {
 
     }
 
+    /**
+     * Obtenir tous les livres de la base de donnée.
+     */
     private final Action actionGetLivres = (req, rep) -> {
         // Obtenir la liste des livres
         List<Livre> livres = this.f.getAllLivres();
+
+        // Configurer la réponse, ajout de l'attribut
+        req.setAttribute("livres", livres);
+
+        // Envoyer la réponse
+        RequestDispatcher rd = req.getRequestDispatcher("page.jsp"); // Redirection vers cette page
+        rd.forward(req, rep);
+    };
+
+    /**
+     * Obtenir un livre.
+     * livreId : identifiant du livre
+     */
+    private final Action actionGetLivre = (req, rep) -> {
+        // Récupération des informations de la requête
+        int id = Integer.parseInt(req.getParameter("livreId"));
+
+        // Récupération du livre
+        Livre livre = this.f.getLivreById(id);
+
+        // Configuration de la réponse
+        req.setAttribute("livre", livre);
+
+        // Envoyer la réponse
+        RequestDispatcher rd = req.getRequestDispatcher("page.jsp"); // Redirection vers cette page
+        rd.forward(req, rep);
+    };
+
+    /**
+     * Ajouter un livre.
+     * proprietaire : identifiant BDD du proprietaire
+     * auteur : auteur
+     * nom : nom
+     * genres : genres
+     */
+    private final Action actionAddLivre = (req, rep) -> {
+        // Récupération des informations de la requête
+        int proprietaire = Integer.parseInt(req.getParameter("proprietaire"));
+        String auteur = req.getParameter("auteur");
+        String nom = req.getParameter("nom");
+        List<String> genres = Arrays.asList(req.getParameterValues("genres"));
+
+        // Ajout à la BDD
+        this.f.addLivre(proprietaire, auteur, nom, genres);
+        // TODO : un peu de vérification et renvoi vers une page d'erreur
+
+        // Envoyer la réponse
+        RequestDispatcher rd = req.getRequestDispatcher("success.html"); // Redirection vers cette page
+        rd.forward(req, rep);
+    };
+
+    private final Action actionGetLivresByAuteur = (req, rep) -> {
+        // Récupération des informations de la requête
+        String auteur = req.getParameter("auteur");
+
+        // Obtenir la liste des livres
+        List<Livre> livres = this.f.getLivresByAuteur(auteur);
+
+        // Configurer la réponse, ajout de l'attribut
+        req.setAttribute("livres", livres);
+
+        // Envoyer la réponse
+        RequestDispatcher rd = req.getRequestDispatcher("page.jsp"); // Redirection vers cette page
+        rd.forward(req, rep);
+    };
+
+    private final Action actionGetLivresByNom = (req, rep) -> {
+        // Récupération des informations de la requête
+        String nom = req.getParameter("nom");
+
+        // Obtenir la liste des livres
+        List<Livre> livres = this.f.getLivresByNom(nom);
 
         // Configurer la réponse, ajout de l'attribut
         req.setAttribute("livres", livres);
@@ -74,6 +154,10 @@ public class Controler extends HttpServlet {
         this.bnf = new Bnf();
         this.actions = new HashMap<>();
         this.actions.put(ACTION_GET_LIVRES, actionGetLivres);
+        this.actions.put(ACTION_GET_LIVRE, actionGetLivre);
+        this.actions.put(ACTION_ADD_LIVRE, actionAddLivre);
+        this.actions.put(ACTION_GET_LIVRES_NOM, actionGetLivresByNom);
+        this.actions.put(ACTION_GET_LIVRES_AUTEUR, actionGetLivresByAuteur);
     }
 
     /**

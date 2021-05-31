@@ -18,8 +18,8 @@ public class Facade {
     // Requêtes
     private final static String ALL_LIVRES_QUERY = "FROM Livre";
     private final static String ALL_UTILISATEURS_QUERY = "FROM Utilisateur";
-    private final static String LIVRES_NAME_QUERY = "FROM Livre WHERE nom=\"%%s%\"";
-    private final static String LIVRES_AUTHOR_QUERY = "FROM Livre WHERE auteur=\"%%s%\"";
+    private final static String LIVRES_NAME_QUERY = "FROM Livre WHERE nom LIKE %:snom%";
+    private final static String LIVRES_AUTHOR_QUERY = "FROM Livre WHERE auteur LIKE %:sauteur%";
     private final static String COUNT_LIVRES_QUERY = "SELECT count(1) FROM Livre";
     private final static String COUNT_UTILISATEURS_QUERY = "SELECT count(1) FROM Utilisateur";
 
@@ -33,11 +33,20 @@ public class Facade {
 
     /**
      * Retrouver un utilisateur depuis son idntifiant.
-     * @param id idnetifiant
+     * @param id identifiant
      * @return utilisateur
      */
-    private Utilisateur getUtilisateurById(int id) {
+    public Utilisateur getUtilisateurById(int id) {
         return em.find(Utilisateur.class, id); // TODO : cas d'erreur?
+    }
+
+    /**
+     * Retrouver un livre depuis son idntifiant.
+     * @param id identifiant
+     * @return utilisateur
+     */
+    public Livre getLivreById(int id) {
+        return em.find(Livre.class, id); // TODO : cas d'erreur?
     }
 
     /**
@@ -45,10 +54,15 @@ public class Facade {
      * @param id identifiant
      * @return conversation
      */
-    private Conversation getConversationById(int id) {
+    public Conversation getConversationById(int id) {
         return em.find(Conversation.class, id);
     }
 
+    /**
+     * Créer un utilisateur.
+     * @param pseudonyme pseudonyme
+     * @param mdp mot de passe
+     */
     public void createUtilisateur(String pseudonyme, String mdp) {
         Utilisateur u = new Utilisateur(); // Création de l'objet
         u.setPseudonyme(pseudonyme);
@@ -163,5 +177,26 @@ public class Facade {
         return (int) this.em.createNativeQuery(COUNT_UTILISATEURS_QUERY).getSingleResult();
     }
 
+    /**
+     * Obtenir un livre depuis son auteur.
+     * @param auteur auteur
+     * @return liste des livres
+     */
+    public List<Livre> getLivresByAuteur(String auteur) {
+        TypedQuery<Livre> query = this.em.createQuery(LIVRES_AUTHOR_QUERY, Livre.class);
+        query.setParameter("sauteur", auteur);
+        return query.getResultList();
+    }
+
+    /**
+     * Obtenir un livre depuis son nom.
+     * @param nom nom
+     * @return liste des livres
+     */
+    public List<Livre> getLivresByNom(String nom) {
+        TypedQuery<Livre> query = this.em.createQuery(LIVRES_NAME_QUERY, Livre.class);
+        query.setParameter("snom", nom);
+        return query.getResultList();
+    }
 
 }
