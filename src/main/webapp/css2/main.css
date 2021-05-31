@@ -87,28 +87,6 @@ svg {
   height: 100%;
 }
 
-body {
-  background-color: #f5f5f8;
-  font-family: "Lato", sans-serif;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-}
-header .logo {
-  height: 75px;
-  padding: 15px;
-  position: relative;
-  top: -6px;
-}
-header .menu_icon {
-  display: block;
-  height: 75px;
-  width: 75px;
-  padding: 15px;
-}
-
 .main .search_box {
   display: flex;
   justify-content: space-between;
@@ -159,6 +137,204 @@ nav.pagination ul a[aria-current=page] {
   color: #fff;
 }
 
+.hero {
+  height: 300px;
+  margin: var(--margin);
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius);
+  background-color: var(--grey1);
+  background-image: url("../img/book_lover.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+}
+.hero .text {
+  max-width: 300px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.cards ::-webkit-scrollbar {
+  display: none;
+}
+.cards::after {
+  content: "";
+  display: block;
+  min-width: 10px;
+}
+.cards .card {
+  flex: 0 0 auto;
+  margin-left: 10px;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.cards .card img {
+  display: block;
+  height: 200px;
+}
+
+.categories .card {
+  text-decoration: none;
+  display: block;
+  background-color: transparent;
+  background-image: attr(data-image url);
+  background-size: cover;
+  width: 200px;
+  height: 100px;
+}
+.categories .card p {
+  color: white;
+  margin-left: var(--margin);
+  line-height: 100px;
+  font-weight: bold;
+}
+
+article h2 {
+  font-size: 1.5rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+article form {
+  margin: 0 auto;
+  max-width: 400px;
+}
+article form label {
+  display: block;
+  margin: 1rem 0;
+}
+article form input[type=text], article form input[type=password], article form textarea {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin: 2rem 0;
+  border: none;
+  background-color: #f1f1f3;
+  border-radius: 25px;
+  font-family: inherit !important;
+}
+article form input[type=text]::placeholder, article form input[type=password]::placeholder, article form textarea::placeholder {
+  font-size: 0.8rem;
+  color: #676767;
+  font-weight: 800;
+}
+article form .cover_label {
+  margin: 1rem auto;
+  padding: 1rem 2rem;
+  color: white;
+  background-color: #3498db;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+}
+article form .cover_label svg {
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+  top: 0.125em;
+  position: relative;
+  fill: white;
+  margin-right: 10px;
+}
+article form input[type=file] {
+  display: none;
+}
+article form button {
+  display: block;
+  margin: 0 auto;
+  margin: 1rem auto;
+  padding: 1rem 2rem;
+  color: white;
+  background-color: #3498db;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+body {
+  background-color: #f5f5f8;
+  font-family: "Lato", sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+}
+header .logo {
+  height: 75px;
+  max-width: calc(100% - 2*75px);
+  padding: 15px;
+  position: relative;
+  top: -6px;
+}
+header .menu_icon {
+  display: block;
+  height: 75px;
+  width: 75px;
+  padding: 15px;
+}
+header .hidden {
+  visibility: hidden;
+}
+
+article.book h2, article.book h3 {
+  text-align: center;
+  margin: 1rem 0;
+}
+article.book h2 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+article.book h3 {
+  font-size: 1rem;
+  color: #37373c;
+}
+article.book img {
+  display: block;
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 200px;
+  border-radius: 10px;
+}
+article.book .bottom_desc {
+  padding: 1rem;
+  background-color: #f5f5f8;
+}
+article.book .bottom_desc h2 {
+  font-size: 1.5rem;
+  text-align: left;
+}
+article.book .bottom_desc p {
+  text-align: justify;
+  line-height: 1.5;
+  margin: 1rem 0;
+}
+article.book .bottom_desc .buttons {
+  display: flex;
+  justify-content: space-around;
+}
+article.book .bottom_desc .buttons button {
+  margin: 1rem auto;
+  padding: 1rem 2rem;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 10px;
+}
+article.book .bottom_desc .buttons button.contact {
+  background-color: #3498db;
+}
+article.book .bottom_desc .buttons button.borrow {
+  background-color: #2ecc71;
+}
+
 article.book_list {
   margin: 1rem 0;
 }
@@ -191,6 +367,12 @@ article.book_list .book .info p {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+article.book_add h2 {
+  font-size: 1.5rem;
+  margin: 2rem 0;
+  text-align: center;
 }
 
 /*# sourceMappingURL=main.css.map */
