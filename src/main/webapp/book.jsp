@@ -12,8 +12,9 @@
 </head>
 <body>
 
+<%@include file="begin.jsp"%>
 
-
+<%@include file="end.jsp"%>
 
 </body>
 </html>

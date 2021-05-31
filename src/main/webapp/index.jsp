@@ -10,9 +10,9 @@
 
 <a href="hello-servlet">Hello Servlet</a>
 
-<%@include file="index.php"%>
+<%@include file="begin.jsp"%>
 
-<%@include file="index2.php"%>
+<%@include file="end.jsp"%>
 
 </body>
 
