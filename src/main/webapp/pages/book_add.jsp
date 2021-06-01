@@ -7,7 +7,8 @@
 ?>
 
 <form action="actionGetLivre" method="GET">
-    Id : <input type="text" name="id"><br/>
+    Titre : <input type="text" name="titre"><br/>
+    Auteur : <input type="text" name="auteur"><br/>
 
         <input type="submit" name="action" value="actionAddLivre">
 </form>
