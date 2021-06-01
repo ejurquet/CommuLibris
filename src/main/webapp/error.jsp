@@ -1,14 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: elios
-  Date: 01/06/2021
-  Time: 18:37
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page pageEncoding="UTF-8" language="java" %>
 <%@include file="begin.jsp"%>
 
-<h1>Erreur</h1>
+<div class="title">
+    <span class="color-red">Erreur !</span>
+</div>
 
 <%
     String errorMessage = (String) request.getAttribute("erreur");

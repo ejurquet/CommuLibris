@@ -17,7 +17,9 @@
     </button>
 
     <!-- logo -->
-    <img class="logo" src="img/logo.png" alt="">
+    <a href="index.jsp">
+        <img class="logo" src="img/logo.png" alt="">
+    </a>
 
     <!-- menu -->
     <button class="menu_icon" id="menu-toggle">

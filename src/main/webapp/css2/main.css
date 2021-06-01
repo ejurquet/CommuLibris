@@ -329,6 +329,10 @@ a {
   color: #ffb883;
 }
 
+.color-red {
+  color: #d96459;
+}
+
 header {
   display: flex;
   justify-content: space-between;
