@@ -8,7 +8,7 @@
 <%@ page pageEncoding="UTF-8" language="java" %>
 <%@include file="begin.jsp"%>
 
-<h1>Erreur ç</h1>
+<h1>Erreur</h1>
 
 <%
     String errorMessage = (String) request.getAttribute("erreur");
