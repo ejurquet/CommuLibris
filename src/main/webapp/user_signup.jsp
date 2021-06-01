@@ -12,7 +12,7 @@
             Inscrivez-vous.
         </div>
 
-        <p>Déjà inscrit ? <a href="#">Connectez-vous</a>.</p>
+        <p>Déjà inscrit ? <a href="user_login.jsp">Connectez-vous</a>.</p>
 
         <input type="text" name="pseudonyme" value="" id="pseudonyme" placeholder="Pseudonyme">
 

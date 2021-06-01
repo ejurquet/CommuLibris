@@ -11,8 +11,8 @@
 
 <header>
     <!-- return -->
-    <button class="menu_icon" id="menu-toggle">
-        <svg><use xlink:href="../icons/icons.svg#back"></use></svg>
+    <button class="menu_icon" id="menu-back">
+        <svg><use xlink:href="icons/icons.svg#back"></use></svg>
 
     </button>
 
@@ -21,7 +21,7 @@
 
     <!-- menu -->
     <button class="menu_icon" id="menu-toggle">
-        <svg><use xlink:href="../icons/icons.svg#menu"></use></svg>
+        <svg><use xlink:href="icons/icons.svg#menu"></use></svg>
 
     </button>
 </header>

@@ -10,7 +10,7 @@
             Connectez-vous.
         </div>
 
-        <p>Pas encore inscrit ? <a href="#">Inscrivez-vous</a>.</p>
+        <p>Pas encore inscrit ? <a href="user_signup.jsp">Inscrivez-vous</a>.</p>
 
         <!-- <label for="title">Titre :</label> -->
         <input type="text" name="pseudonyme" value="" id="pseudonyme" placeholder="Pseudonyme">

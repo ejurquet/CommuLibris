@@ -15,11 +15,13 @@
         <!-- <label for="author">Auteur :</label> -->
         <input type="text" name="auteur" value="" id="author" placeholder="Auteur">
 
-        <label for="cover" class="cover_label">
+        <!--<label for="cover" class="cover_label">
             <svg><use xlink:href="icons/icons.svg#photo"></use></svg>
             <span>Uploader une photo</span>
         </label>
-        <input type="file" name="couverture" value="" id="cover">
+        <input type="file" name="couverture" value="" id="cover">-->
+
+        <input type="text" name="image_url" value="" id="image" placeholder="Url de l'image de couverture">
 
         <!-- <label for="desc">Dexcription :</label> -->
         <textarea name="desc" rows="5" cols="40" id="desc" placeholder="Description"></textarea>
