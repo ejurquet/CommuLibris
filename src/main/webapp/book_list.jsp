@@ -1,5 +1,6 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@include file="begin.jsp"%>
+
 <label class="search_box">
     <svg viewBox="0 0 20 20">
         <use xlink:href="icons/icons.svg#search"></use>
@@ -9,10 +10,13 @@
 
 <article class="book_list">
 
-    <p class="search_result">Résultat de votre recherche : <i>Vivre sans</i></p>
+    <div class="title">
+        Résultat de votre recherche <br>
+        <i>Vivre sans</i>
+    </div>
 
     <section class="book">
-        <img src="../img/book5.jpg" alt="" class="cover">
+        <img src="img/book5.jpg" alt="" class="cover">
 
         <div class="info">
             <h2>Vivre sans</h2>
@@ -22,7 +26,7 @@
     </section>
 
     <section class="book">
-        <img src="../img/book5.jpg" alt="" class="cover">
+        <img src="img/book5.jpg" alt="" class="cover">
 
         <div class="info">
             <h2>Vivre sans</h2>
@@ -32,7 +36,7 @@
     </section>
 
     <section class="book">
-        <img src="../img/book5.jpg" alt="" class="cover">
+        <img src="img/book5.jpg" alt="" class="cover">
 
         <div class="info">
             <h2>Vivre sans</h2>
@@ -42,7 +46,7 @@
     </section>
 
     <section class="book">
-        <img src="../img/book5.jpg" alt="" class="cover">
+        <img src="img/book5.jpg" alt="" class="cover">
 
         <div class="info">
             <h2>Vivre sans</h2>

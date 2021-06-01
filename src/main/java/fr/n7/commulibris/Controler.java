@@ -74,19 +74,23 @@ public class Controler extends HttpServlet {
         String pseudonyme = req.getParameter("pseudonyme");
         String mdp = req.getParameter("mdp");
 
-        // Création de l'utilisateur
-        boolean done = this.f.createUtilisateur(pseudonyme, mdp);
+        System.out.println(pseudonyme);
+        System.out.println(mdp);
 
+        // Création de l'utilisateur
+        //boolean done = this.f.createUtilisateur(pseudonyme, mdp);
+/*
         // Envoyer la réponse
         if (done) {
-            RequestDispatcher rd = req.getRequestDispatcher("pages/book_list.jsp"); // Redirection vers cette page
+            RequestDispatcher rd = req.getRequestDispatcher("book_list.jsp"); // Redirection vers cette page
             rd.forward(req, rep);
         } else {
             // Afficher un message d'erreur
             req.setAttribute("erreur", "Votre compte n'a pas pu être créé. Le pseudonyme est déjà utilisé.");
-            RequestDispatcher rd = req.getRequestDispatcher("pages/error.jsp");
+            RequestDispatcher rd = req.getRequestDispatcher("error.jsp");
             rd.forward(req, rep);
         }
+*/
     };
 
     /**
@@ -99,6 +103,9 @@ public class Controler extends HttpServlet {
         String pseudonyme = req.getParameter("pseudonyme");
         String mdp = req.getParameter("mdp");
 
+        System.out.println(pseudonyme);
+        System.out.println(mdp);
+/*
         // Vérifier l'authentification
         int id = this.f.authenticateUtilisateur(pseudonyme, mdp);
 
@@ -109,15 +116,15 @@ public class Controler extends HttpServlet {
             rep.addCookie(utilisateurCookie);
 
             // Répondre
-            RequestDispatcher rd = req.getRequestDispatcher("pages/book_list.jsp"); // Redirection vers cette page
+            RequestDispatcher rd = req.getRequestDispatcher("book_list.jsp"); // Redirection vers cette page
             rd.forward(req, rep);
         } else {
             // Afficher un message d'erreur
             req.setAttribute("erreur", "Authentification incorrecte.");
-            RequestDispatcher rd = req.getRequestDispatcher("pages/error.jsp");
+            RequestDispatcher rd = req.getRequestDispatcher("error.jsp");
             rd.forward(req, rep);
         }
-
+*/
     };
 
     /**
@@ -131,7 +138,7 @@ public class Controler extends HttpServlet {
         req.setAttribute("livres", livres);
 
         // Envoyer la réponse
-        RequestDispatcher rd = req.getRequestDispatcher("../../webapp/pages/book_list.jsp"); // Redirection vers cette page
+        RequestDispatcher rd = req.getRequestDispatcher("book_list.jsp"); // Redirection vers cette page
         rd.forward(req, rep);
     };
 
@@ -144,13 +151,17 @@ public class Controler extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("livreId"));
 
         // Récupération du livre
-        Livre livre = this.f.getLivreById(id);
+        //Livre livre = this.f.getLivreById(id);
+        Livre livre = new Livre();
+        livre.setId(1);
+        livre.setNom("Bob");
+        livre.setAuteur("Le Bricoleur");
 
         // Configuration de la réponse
         req.setAttribute("livre", livre);
 
         // Envoyer la réponse
-        RequestDispatcher rd = req.getRequestDispatcher("../../webapp/pages/book.jsp"); // Redirection vers cette page
+        RequestDispatcher rd = req.getRequestDispatcher("book.jsp"); // Redirection vers cette page
         rd.forward(req, rep);
     };
 
@@ -173,7 +184,7 @@ public class Controler extends HttpServlet {
         // TODO : un peu de vérification et renvoi vers une page d'erreur
 
         // Envoyer la réponse
-        RequestDispatcher rd = req.getRequestDispatcher("../../webapp/pages/book_add.jsp"); // Redirection vers cette page
+        RequestDispatcher rd = req.getRequestDispatcher("book_add.jsp"); // Redirection vers cette page
         rd.forward(req, rep);
     };
 
@@ -192,7 +203,7 @@ public class Controler extends HttpServlet {
         req.setAttribute("livres", livres);
 
         // Envoyer la réponse
-        RequestDispatcher rd = req.getRequestDispatcher("../../webapp/pages/book_list.jsp"); // Redirection vers cette page
+        RequestDispatcher rd = req.getRequestDispatcher("book_list.jsp"); // Redirection vers cette page
         rd.forward(req, rep);
     };
 
@@ -211,7 +222,7 @@ public class Controler extends HttpServlet {
         req.setAttribute("livres", livres);
 
         // Envoyer la réponse
-        RequestDispatcher rd = req.getRequestDispatcher("../../webapp/pages/book_list.jsp"); // Redirection vers cette page
+        RequestDispatcher rd = req.getRequestDispatcher("book_list.jsp"); // Redirection vers cette page
         rd.forward(req, rep);
     };
 
@@ -255,7 +266,7 @@ public class Controler extends HttpServlet {
             } else {
                 // Redirection vers la page d'erreur
                 req.setAttribute("erreur", "La page à laquelle vous tentez d'accéder n'existe pas.");
-                RequestDispatcher rd = req.getRequestDispatcher("pages/error.jsp");
+                RequestDispatcher rd = req.getRequestDispatcher("error.jsp");
                 rd.forward(req, rep);
             }
 
