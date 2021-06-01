@@ -2,3 +2,24 @@ body {
 	background-color: $background;
 	font-family: $font;
 }
+
+a {
+	color: $blue;
+}
+
+.title {
+	font-size: 2rem;
+	margin: 2rem 1rem;
+	font-weight: bold;
+	line-height: 1.5;
+}
+
+.color-blue {
+	color: $blue;
+}
+.color-green {
+	color: $green;
+}
+.color-orange {
+	color: $orange;
+}

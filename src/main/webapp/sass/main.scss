@@ -3,15 +3,24 @@
 // Reset the styles
 @import "reset";
 
+// Components
 @import "icons";
-@import "body";
-@import "header";
 @import "search_box";
 @import "pagination";
+@import "hero";
+@import "cards";
+@import "buttons";
+@import "form";
+@import "rate";
+
+@import "body";
+@import "header";
 
 // Pages
-//@import "book";
+@import "home";
+@import "book";
 @import "book_list";
+@import "book_add";
 
 // Fonts
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap');

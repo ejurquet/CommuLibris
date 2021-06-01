@@ -9,20 +9,21 @@ nav.pagination {
 	    display: flex;
 
 		& li {
-			margin: 0 1px;
+			margin: 0 0.2rem;
 		}
 
 		& a {
 			display: block;
 			padding: .5em 1em;
-			border: 1px solid #999;
+			border: 1px solid $black;
 			border-radius: .2em;
 			text-decoration: none;
 			color: $black;
 		}
 
 		& a[aria-current="page"] {
-            background-color: $black;
+            background-color: $blue;
+			border-color: $blue;
             color: #fff;
         }
 	}

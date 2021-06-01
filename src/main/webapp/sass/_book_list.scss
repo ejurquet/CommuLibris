@@ -4,18 +4,23 @@ article.book_list {
 
 	margin: 1rem 0;
 
-	& .search_result {
-		margin: 1rem;
+	& .title {
+		font-size: 2rem;
+		margin: 2rem 1rem;
+		font-weight: bold;
+		line-height: 1.5;
 
 		& i {
 			font-style: italic;
+			font-weight: 400;
+			font-size: 1.5rem;
 		}
 	}
 
 	& .book {
 
 		display: flex;
-		margin: 1rem;
+		margin: 2rem 1rem;
 
 		& img {
 			display: block;
@@ -31,6 +36,7 @@ article.book_list {
 			& h2 {
 				font-size: 1.5rem;
 				font-weight: bold;
+				text-align: left;
 			}
 
 			& p {
