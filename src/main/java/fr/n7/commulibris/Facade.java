@@ -1,5 +1,7 @@
 package fr.n7.commulibris;
 
+import fr.n7.commulibris.entities.*;
+
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +18,8 @@ import java.util.List;
 public class Facade {
 
     // Requêtes
+    private final static String UTILISATEUR_PSEUDO_QUERY = "FROM Utilisateur WHERE pseudonyme = :spseudonyme";
+    private final static String UTILISATEUR_PSEUDO_MDP_QUERY = "FROM Utilisateur WHERE pseudonyme = :spseudonyme AND mdp = :smdp";
     private final static String ALL_LIVRES_QUERY = "FROM Livre";
     private final static String ALL_UTILISATEURS_QUERY = "FROM Utilisateur";
     private final static String LIVRES_NAME_QUERY = "FROM Livre WHERE nom LIKE %:snom%";
@@ -62,13 +66,48 @@ public class Facade {
      * Créer un utilisateur.
      * @param pseudonyme pseudonyme
      * @param mdp mot de passe
+     * @return validation
      */
-    public void createUtilisateur(String pseudonyme, String mdp) {
-        Utilisateur u = new Utilisateur(); // Création de l'objet
-        u.setPseudonyme(pseudonyme);
-        u.setMdp(mdp);
+    public boolean createUtilisateur(String pseudonyme, String mdp) {
+        // Initialisations
+        TypedQuery<Utilisateur> query = this.em.createQuery(UTILISATEUR_PSEUDO_QUERY, Utilisateur.class);
+        query.setParameter("spseudonyme", pseudonyme);
+        List<Utilisateur> ul = query.getResultList();
+        boolean created = !ul.isEmpty();
 
-        this.em.persist(u); // Persistence
+        // Création si possible
+        if (created) {
+            Utilisateur u = new Utilisateur(); // Création de l'objet
+            u.setPseudonyme(pseudonyme);
+            u.setMdp(mdp);
+
+            this.em.persist(u); // Persistence
+        }
+
+        return created;
+    }
+
+    /**
+     * Connecter un utilisateur.
+     * @param pseudonyme pseudonyme
+     * @param mdp mdp
+     * @return identifiant de l'utilisateur
+     */
+    public int authenticateUtilisateur(String pseudonyme, String mdp) {
+        // Initialisations
+        int id = -1;
+        TypedQuery<Utilisateur> query = this.em.createQuery(UTILISATEUR_PSEUDO_MDP_QUERY, Utilisateur.class);
+        query.setParameter("spseudonyme", pseudonyme);
+        query.setParameter("smdp", mdp);
+        List<Utilisateur> ul = query.getResultList();
+
+        // Récupération si possible
+        if (!ul.isEmpty()) {
+            Utilisateur u = ul.get(0);
+            id = u.getId();
+        }
+
+        return id;
     }
 
     /**
