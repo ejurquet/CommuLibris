@@ -1,0 +1,48 @@
+.cards {
+	$margin : $h-margin;
+
+	display: flex;
+	flex-wrap: nowrap;
+	overflow-x: auto;
+	scrollbar-width: none;
+
+	& ::-webkit-scrollbar {
+		display: none;
+	}
+
+	&::after {
+		content: "";
+		display: block;
+		min-width: $margin;
+	}
+
+	& .card {
+		flex: 0 0 auto;
+		margin-left: $margin;
+		background-color: white;
+		border-radius: $margin;
+		overflow: hidden;
+
+		& img {
+			display: block;
+			height: 200px;
+		}
+	}
+}
+
+.categories .card {
+	text-decoration: none;
+	display: block;
+	background-color: transparent;
+	background-image: attr(data-image url);
+	background-size: cover;
+	width: 200px;
+	height: 100px;
+
+	& p {
+		color: white;
+		margin-left: $h-margin;
+		line-height: 100px;
+		font-weight: bold;
+	}
+}

@@ -1,0 +1,72 @@
+article {
+
+	& form {
+		margin: 0 auto;
+		max-width: 400px;
+		padding: 0 $h-margin;
+
+		& .title {
+			font-size: 2rem;
+			margin: 1rem 0 1rem 0;
+			font-weight: bold;
+			line-height: 1.5;
+		}
+
+		& label, .rate {
+			display: block;
+			margin: 2rem 0;
+		}
+
+		& input[type="text"], input[type="password"], textarea {
+			display: block;
+			width: 100%;
+			padding: 15px;
+			margin: 2rem 0;
+
+			border: none;
+			outline: none;
+			background-color: $grey1;
+			border-radius: $radius;
+			font-family: inherit !important;
+			font-size: 0.8rem;
+
+			&::placeholder {
+				font-size: 0.8rem;
+				color: $grey2;
+				font-weight: 800;
+			}
+
+			&:focus {
+				//background: lighten($orange, 20%);
+			}
+		}
+
+		& .cover_label {
+			@include btn(white, $blue);
+
+			& svg {
+				fill: white;
+				margin-right: 10px;
+				vertical-align: middle;
+				top: 0;
+				font-size: 1.5em;
+			}
+
+			& span {
+				vertical-align: middle
+			}
+		}
+		& input[type="file"]{
+			display: none;
+		}
+
+		& button {
+			display: block;
+			margin: 0 auto;
+			width: 100%;
+			@include btn(white, $green);
+		}
+
+	}
+
+}
