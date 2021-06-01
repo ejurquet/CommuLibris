@@ -174,17 +174,17 @@ public class Controler extends HttpServlet {
      */
     private final Action actionAddLivre = (req, rep) -> {
         // Récupération des informations de la requête
-        int proprietaire = Integer.parseInt(req.getParameter("proprietaire"));
+        //int proprietaire = Integer.parseInt(req.getParameter("proprietaire"));
         String auteur = req.getParameter("auteur");
         String nom = req.getParameter("nom");
-        List<String> genres = Arrays.asList(req.getParameterValues("genres"));
+        //List<String> genres = Arrays.asList(req.getParameterValues("genres"));
 
         // Ajout à la BDD
-        this.f.addLivre(proprietaire, auteur, nom, genres);
+        //this.f.addLivre(proprietaire, auteur, nom, genres);
         // TODO : un peu de vérification et renvoi vers une page d'erreur
 
         // Envoyer la réponse
-        RequestDispatcher rd = req.getRequestDispatcher("book_add.jsp"); // Redirection vers cette page
+        RequestDispatcher rd = req.getRequestDispatcher("index.jsp"); // Redirection vers cette page
         rd.forward(req, rep);
     };
 
