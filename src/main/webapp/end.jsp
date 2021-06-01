@@ -23,5 +23,7 @@
 
 </footer> -->
 
+<script src="js/menu.js" charset="utf-8"></script>
+
 </body>
 </html>

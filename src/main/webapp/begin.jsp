@@ -28,4 +28,49 @@
     </button>
 </header>
 
+<nav class="nav">
+    <ul>
+        <li>
+            <a href="index.jsp">
+                <svg class="icon"><use xlink:href="icons/icons.svg#home"></use></svg>
+                <span>Acceuil</span>
+            </a>
+        </li>
+        <li>
+            <a href="user_login.jsp">
+                <svg class="icon"><use xlink:href="icons/icons.svg#user"></use></svg>
+                <span>Se connecter</span>
+            </a>
+        </li>
+
+
+        <!--
+        <li>
+            <a href="#">
+                <svg class="icon"><use xlink:href="icons/icons.svg#categories"></use></svg>
+                <span>Catégories</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <svg class="icon"><use xlink:href="icons/icons.svg#message"></use></svg>
+                <span>Messages</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <svg class="icon"><use xlink:href="icons/icons.svg#book"></use></svg>
+                <span>Mes livres</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <svg class="icon"><use xlink:href="icons/icons.svg#logout"></use></svg>
+                <span>Se déconnecter</span>
+            </a>
+        </li>
+        -->
+    </ul>
+</nav>
+
 <main class="main">

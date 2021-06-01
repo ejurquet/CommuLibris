@@ -329,20 +329,21 @@ a {
   color: #ffb883;
 }
 
-.color-red {
-  color: #d96459;
-}
-
 header {
   display: flex;
   justify-content: space-between;
 }
-header .logo {
+header a {
   height: 75px;
   max-width: calc(100% - 2*75px);
   padding: 15px;
   position: relative;
   top: -6px;
+}
+header a img {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 header .menu_icon {
   display: block;
@@ -350,9 +351,63 @@ header .menu_icon {
   width: 75px;
   padding: 15px;
   font-size: 2rem;
+  z-index: 5;
 }
 header .hidden {
   visibility: hidden;
+}
+
+body.opened #menu-toggle {
+  fill: white;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  width: 80%;
+  height: 100%;
+  display: grid;
+  /* justify-content: center; */
+  align-content: center;
+  background-color: #37373c;
+}
+
+.nav ul {
+  margin: 2rem;
+}
+
+.nav ul li a {
+  display: block;
+  padding: 2rem;
+  text-decoration: none;
+  color: #f1f1f3;
+  font-weight: bold;
+}
+
+.nav a svg {
+  width: 1em;
+  height: 1em;
+}
+
+.nav a .icon, .nav a span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.nav a .icon {
+  margin-right: 1rem;
+  fill: #f1f1f3;
+  font-size: 1.2em;
+  top: 0;
+}
+
+.nav {
+  transition: transform 0.2s ease;
+  transform: translateX(100vw);
+}
+
+.opened .nav {
+  transform: translateX(20vw);
 }
 
 section > h2 {

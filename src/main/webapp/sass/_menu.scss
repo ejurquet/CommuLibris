@@ -1,0 +1,51 @@
+// SEARCH
+
+.nav {
+  position: fixed;
+  top: 0;
+  width: 80%;
+  height: 100%;
+
+  display: grid;
+  /* justify-content: center; */
+  align-content: center;
+
+  background-color: $black;
+}
+.nav ul {
+  margin: $v-margin;
+}
+
+.nav ul li a {
+  display: block;
+  padding: $v-margin;
+
+  text-decoration: none;
+  color: $grey1;
+  font-weight: bold;
+}
+
+.nav a svg {
+  width: 1em;
+  height: 1em;
+}
+
+.nav a .icon, .nav a span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.nav a .icon {
+  margin-right: $h-margin;
+  fill: $grey1;
+  font-size: 1.2em;
+  top: 0;
+}
+
+.nav {
+  transition: transform .2s ease;
+  transform: translateX(100vw);
+}
+.opened .nav {
+  transform: translateX(20vw);
+}
