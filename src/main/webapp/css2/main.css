@@ -1,8 +1,9 @@
+@charset "UTF-8";
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
-@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap");
 * {
   box-sizing: border-box;
 }
@@ -83,14 +84,17 @@ https://medium.com/@matuzo/writing-css-with-accessibility-in-mind-8514a0007939
 }
 
 svg {
-  width: 100%;
-  height: 100%;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  top: 0.125em;
+  position: relative;
 }
 
 .main .search_box {
   display: flex;
   justify-content: space-between;
-  margin: 1rem;
+  margin: 2rem 1rem;
   height: 50px;
   background-color: #f1f1f3;
   border-radius: 25px;
@@ -122,35 +126,31 @@ nav.pagination ul {
   display: flex;
 }
 nav.pagination ul li {
-  margin: 0 1px;
+  margin: 0 0.2rem;
 }
 nav.pagination ul a {
   display: block;
   padding: 0.5em 1em;
-  border: 1px solid #999;
+  border: 1px solid #37373c;
   border-radius: 0.2em;
   text-decoration: none;
   color: #37373c;
 }
 nav.pagination ul a[aria-current=page] {
-  background-color: #37373c;
+  background-color: #8080ff;
+  border-color: #8080ff;
   color: #fff;
 }
 
 .hero {
   height: 300px;
-  margin: var(--margin);
+  margin: 2rem 0;
   display: flex;
   align-items: center;
-  border-radius: var(--radius);
-  background-color: var(--grey1);
   background-image: url("../img/book_lover.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: right;
-}
-.hero .text {
-  max-width: 300px;
 }
 
 .cards {
@@ -165,13 +165,13 @@ nav.pagination ul a[aria-current=page] {
 .cards::after {
   content: "";
   display: block;
-  min-width: 10px;
+  min-width: 1rem;
 }
 .cards .card {
   flex: 0 0 auto;
-  margin-left: 10px;
+  margin-left: 1rem;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 1rem;
   overflow: hidden;
 }
 .cards .card img {
@@ -190,23 +190,25 @@ nav.pagination ul a[aria-current=page] {
 }
 .categories .card p {
   color: white;
-  margin-left: var(--margin);
+  margin-left: 1rem;
   line-height: 100px;
   font-weight: bold;
 }
 
-article h2 {
-  font-size: 1.5rem;
-  margin: 2rem 0;
-  text-align: center;
-}
 article form {
   margin: 0 auto;
   max-width: 400px;
+  padding: 0 1rem;
 }
-article form label {
+article form .title {
+  font-size: 2rem;
+  margin: 1rem 0 1rem 0;
+  font-weight: bold;
+  line-height: 1.5;
+}
+article form label, article form .rate {
   display: block;
-  margin: 1rem 0;
+  margin: 2rem 0;
 }
 article form input[type=text], article form input[type=password], article form textarea {
   display: block;
@@ -214,9 +216,11 @@ article form input[type=text], article form input[type=password], article form t
   padding: 15px;
   margin: 2rem 0;
   border: none;
+  outline: none;
   background-color: #f1f1f3;
-  border-radius: 25px;
+  border-radius: 10px;
   font-family: inherit !important;
+  font-size: 0.8rem;
 }
 article form input[type=text]::placeholder, article form input[type=password]::placeholder, article form textarea::placeholder {
   font-size: 0.8rem;
@@ -225,22 +229,23 @@ article form input[type=text]::placeholder, article form input[type=password]::p
 }
 article form .cover_label {
   margin: 1rem auto;
-  padding: 1rem 2rem;
+  padding: 15px;
   color: white;
-  background-color: #3498db;
-  font-size: 1rem;
+  background-color: #8080ff;
+  font-size: 0.8rem;
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
 }
 article form .cover_label svg {
-  width: 1rem;
-  height: 1rem;
-  display: inline-block;
-  top: 0.125em;
-  position: relative;
   fill: white;
   margin-right: 10px;
+  vertical-align: middle;
+  top: 0;
+  font-size: 1.5em;
+}
+article form .cover_label span {
+  vertical-align: middle;
 }
 article form input[type=file] {
   display: none;
@@ -248,19 +253,80 @@ article form input[type=file] {
 article form button {
   display: block;
   margin: 0 auto;
+  width: 100%;
   margin: 1rem auto;
-  padding: 1rem 2rem;
+  padding: 15px;
   color: white;
-  background-color: #3498db;
-  font-size: 1rem;
+  background-color: #9cdaa5;
+  font-size: 0.8rem;
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
 }
 
+.rate:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+}
+
+.rate:not(:checked) > label {
+  float: right;
+  width: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 30px;
+  color: #ccc;
+  margin: 0 !important;
+}
+
+.rate:not(:checked) > label:before {
+  content: "★ ";
+}
+
+.rate > input:checked ~ label {
+  color: #ffc700;
+}
+
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+  color: #deb217;
+}
+
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
 body {
   background-color: #f5f5f8;
   font-family: "Lato", sans-serif;
+}
+
+a {
+  color: #8080ff;
+}
+
+.title {
+  font-size: 2rem;
+  margin: 2rem 1rem;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+.color-blue {
+  color: #8080ff;
+}
+
+.color-green {
+  color: #9cdaa5;
+}
+
+.color-orange {
+  color: #ffb883;
 }
 
 header {
@@ -279,9 +345,16 @@ header .menu_icon {
   height: 75px;
   width: 75px;
   padding: 15px;
+  font-size: 2rem;
 }
 header .hidden {
   visibility: hidden;
+}
+
+section > h2 {
+  font-size: 1.2rem;
+  margin: 1rem;
+  font-weight: lighter;
 }
 
 article.book h2, article.book h3 {
@@ -329,24 +402,29 @@ article.book .bottom_desc .buttons button {
   border-radius: 10px;
 }
 article.book .bottom_desc .buttons button.contact {
-  background-color: #3498db;
+  background-color: #8080ff;
 }
 article.book .bottom_desc .buttons button.borrow {
-  background-color: #2ecc71;
+  background-color: #9cdaa5;
 }
 
 article.book_list {
   margin: 1rem 0;
 }
-article.book_list .search_result {
-  margin: 1rem;
+article.book_list .title {
+  font-size: 2rem;
+  margin: 2rem 1rem;
+  font-weight: bold;
+  line-height: 1.5;
 }
-article.book_list .search_result i {
+article.book_list .title i {
   font-style: italic;
+  font-weight: 400;
+  font-size: 1.5rem;
 }
 article.book_list .book {
   display: flex;
-  margin: 1rem;
+  margin: 2rem 1rem;
 }
 article.book_list .book img {
   display: block;
@@ -360,6 +438,7 @@ article.book_list .book .info {
 article.book_list .book .info h2 {
   font-size: 1.5rem;
   font-weight: bold;
+  text-align: left;
 }
 article.book_list .book .info p {
   text-align: justify;
