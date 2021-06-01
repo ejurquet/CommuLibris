@@ -11,7 +11,7 @@
 
 <header>
     <!-- return -->
-    <button class="menu_icon" id="menu-back">
+    <button class="menu_icon" id="menu-back" onclick="window.history.back()">
         <svg><use xlink:href="icons/icons.svg#back"></use></svg>
 
     </button>
