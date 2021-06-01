@@ -1,4 +1,4 @@
-package fr.n7.commulibris;
+package fr.n7.commulibris.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
