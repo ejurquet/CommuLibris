@@ -9,6 +9,6 @@
     String successMessage = (String) request.getAttribute("success");
     successMessage = successMessage != null ? successMessage : "Vous avez réussi ! Mais aucune idée de ce que vous étiez en train de faire ...";
 %>
-<%= successMessage %>
+<p><%= successMessage %></p>
 
 <%@include file="end.jsp"%>

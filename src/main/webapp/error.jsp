@@ -2,13 +2,13 @@
 <%@include file="begin.jsp"%>
 
 <div class="title">
-    <span class="color-red">Erreur !</span>
+    <span class="color-orange">Erreur !</span>
 </div>
 
 <%
     String errorMessage = (String) request.getAttribute("erreur");
     errorMessage = errorMessage != null ? errorMessage : "Quelque chose s'est mal passé. Réessayez ultèrieurement !";
 %>
-<%= errorMessage %>
+<p><%= errorMessage %></p>
 
 <%@include file="end.jsp"%>
