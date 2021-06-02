@@ -14,7 +14,8 @@
             Envoyez un message à <span class="color-blue">#<%= cible.getPseudonyme() %></span>
         </div>
 
-        <textarea name="desc" rows="8" cols="40" id="desc" placeholder="Message"></textarea>
+        <input type="text" name="nom" value="" id="nom" placeholder="Message">
+<%--        <textarea name="desc" rows="8" cols="40" id="desc" placeholder="Message"></textarea>--%>
 
         <input type="hidden" name="action" value="startConv">
         <input type="hidden" name="cible" value="<%= cible.getId() %>">

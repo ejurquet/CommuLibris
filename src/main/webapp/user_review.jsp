@@ -3,7 +3,7 @@
 <%@include file="begin.jsp"%>
 
 <%
-    Utilisateur u = (Utilisateur) request.getAttribute("utilisateur");
+    Utilisateur u = (Utilisateur) request.getAttribute("cible");
 %>
 
 <article class="user_review">
@@ -11,7 +11,7 @@
     <form class="" action="controler" method="get">
 
         <div class="title">
-            Laissez un avis à <span class="color-blue">#User</span>
+            Laissez un avis à <span class="color-blue">#<%= u.getPseudonyme()%></span>
         </div>
 
         <textarea name="desc" rows="8" cols="40" id="desc" placeholder="Description"></textarea>
@@ -30,8 +30,8 @@
             <div style="clear:both"></div>
         </div>
 
-        <input type="hidden" name="action" value="review">
-        <input type="hidden" name="cible" value="<%= u.getId() %>>">
+        <input type="hidden" name="action" value="addAvis">
+        <input type="hidden" name="cible" value="<%= u.getId() %>">
 
         <button class="btn" type="submit">Envoyer</button>
 

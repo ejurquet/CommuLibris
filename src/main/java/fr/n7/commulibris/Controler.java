@@ -1,5 +1,6 @@
 package fr.n7.commulibris;
 
+import fr.n7.commulibris.entities.Conversation;
 import fr.n7.commulibris.entities.Livre;
 import fr.n7.commulibris.entities.Utilisateur;
 
@@ -30,6 +31,8 @@ public class Controler extends HttpServlet {
     private final static String ACTION_ADD_LIVRE = "addLivre";
     private final static String ACTION_ACCESS_PROFIL = "accessProfil";
     private final static String ACTION_ACCESS_OTHER_PROFIL = "accessOtherProfil";
+    private final static String ACTION_REQUEST_ADD_AVIS = "requestAddAvis";
+    private final static String ACTION_ADD_AVIS = "addAvis";
 
     /**
      * Communication avec nos entités.
@@ -276,7 +279,8 @@ public class Controler extends HttpServlet {
      */
     private final Action actionRequestAddAvis = (req, rep) -> {
         // Récupération de l'utilisateur
-        Utilisateur utilisateur = isLogged(req);
+        int cible = Integer.parseInt(req.getParameter("cible"));
+        Utilisateur utilisateur = this.f.getUtilisateurById(cible);
         boolean valid = utilisateur != null;
 
         if (valid) {
@@ -311,11 +315,95 @@ public class Controler extends HttpServlet {
 
             // Ajout à la BDD
             this.f.addAvis(source, cible, note, desc);
+
+            successMessage(req, rep, "Avis ajouté.");
         }
 
         if (!valid) {
             errorMessage(req, rep, "Impossible d'ajouter cet avis.");
         }
+    };
+
+    /**
+     * Demander à démarrer une conversation.
+     * cible : cible
+     */
+    private final Action actionRequestStartConversation = (req, rep) -> {
+        // Récupération de l'utilisateur
+        int cible = Integer.parseInt(req.getParameter("cible"));
+        Utilisateur utilisateur = this.f.getUtilisateurById(cible);
+        boolean valid = utilisateur != null;
+
+        if (valid) {
+            req.setAttribute("cible", utilisateur);
+            RequestDispatcher rd = req.getRequestDispatcher("user_start_conv.jsp");
+            rd.forward(req, rep);
+        }
+
+        if (!valid) {
+            errorMessage(req, rep, "Impossible d'accèder à la page pour démarrer une conversation.");
+        }
+    };
+
+    /**
+     * Démarrer une conversation.
+     * nom : nom
+     * cible : identifiant de la cible
+     */
+    private final Action actionStartConversation = (req, rep) -> {
+        // Récupération de l'utilisateur
+        Utilisateur utilisateur = isLogged(req);
+        boolean valid = utilisateur != null;
+
+        if (valid) {
+            // Récupération des paramètres
+            int[] participants = new int[] {utilisateur.getId(), Integer.parseInt(req.getParameter("cible"))};
+            String nom = req.getParameter("nom");
+//            String desc = req.getParameter("desc");
+
+            valid = nom != null;
+
+            if (valid) {
+                // Ajout à la BDD
+                this.f.addConversation(participants, nom);
+                successMessage(req, rep, "Conversation démarrée accédez-y via votre profil.");
+            }
+        }
+
+        if (!valid) {
+            errorMessage(req, rep, "Impossible de démarrer une conversation.");
+        }
+    };
+
+    /**
+     * Accéder à une conversation.
+     * cible : identifiant conversation
+     */
+    private final Action actionAccessConversation = (req, rep) -> {
+        // Récupération de l'utilisateur
+        Utilisateur utilisateur = isLogged(req);
+        boolean valid = utilisateur != null;
+
+        if (valid) {
+            // Récupération des paramètres
+            int id = Integer.parseInt(req.getParameter("cible"));
+            Conversation c = this.f.getConversationById(id);
+
+            valid = c != null && c.getParticipants().contains(utilisateur);
+
+            if (valid) {
+                req.setAttribute("cible", c);
+                RequestDispatcher rd = req.getRequestDispatcher("conversation.jsp");
+                rd.forward(req, rep);
+            }
+        }
+
+        if (!valid) {
+            errorMessage(req, rep, "Impossible d'accéder à cette conversation.");
+        }
+    };
+
+    private final Action actionAddMessage = (req, rep) -> {
 
     };
 
@@ -335,6 +423,8 @@ public class Controler extends HttpServlet {
         this.actions.put(ACTION_LOGOUT_UTILISATEUR, actionLogoutUtilisateur);
         this.actions.put(ACTION_ACCESS_PROFIL, actionAccesProfil);
         this.actions.put(ACTION_ACCESS_OTHER_PROFIL, actionAccessOtherProfil);
+        this.actions.put(ACTION_REQUEST_ADD_AVIS, actionRequestAddAvis);
+        this.actions.put(ACTION_ADD_AVIS, actionAddAvis);
     }
 
     /**
@@ -413,24 +503,21 @@ public class Controler extends HttpServlet {
                 action.execute(req, rep);
             } else {
                 // Redirection vers la page d'erreur
-                req.setAttribute("erreur", "La page à laquelle vous tentez d'accéder n'existe pas.");
-                RequestDispatcher rd = req.getRequestDispatcher("error.jsp");
-                rd.forward(req, rep);
+                errorMessage(req, rep, "La page à laquelle vous tentez d'accéder n'existe pas.");
             }
 
         } catch (Exception e) {
+            // Dernière tentative d'afficher une erreur
+            try {
+                errorMessage(req, rep, "Quelque chose s'est mal passé.");
+            } catch (ServletException | IOException servletException) {
+                servletException.printStackTrace();
+            }
+
+            // Affichage de l'erreur de notre côté
             System.out.println("Une erreur est survenue lors de la récupération d'une requête HTTP");
             e.printStackTrace();
         }
     }
-
-    /*
-    // doFilter
-    public void doFilter(HttpServletRequest request, HttpServletResponse response, HttpFilter chain) throws IOException, ServletException {
-        response.setContentType("text/html; charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        doFilter(request, response, chain);
-    }*/
 
 }
