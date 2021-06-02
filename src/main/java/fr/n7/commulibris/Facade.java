@@ -92,11 +92,10 @@ public class Facade {
      * Connecter un utilisateur.
      * @param pseudonyme pseudonyme
      * @param mdp mdp
-     * @return identifiant de l'utilisateur
+     * @return l'utilisateur
      */
-    public int authenticateUtilisateur(String pseudonyme, String mdp) {
+    public Utilisateur authenticateUtilisateur(String pseudonyme, String mdp) {
         // Initialisations
-        int id = -1;
         TypedQuery<Utilisateur> query = this.em.createQuery(UTILISATEUR_PSEUDO_MDP_QUERY, Utilisateur.class);
         query.setParameter("spseudonyme", pseudonyme);
         query.setParameter("smdp", mdp);
@@ -105,10 +104,10 @@ public class Facade {
         // Récupération si possible
         if (!ul.isEmpty()) {
             Utilisateur u = ul.get(0);
-            id = u.getId();
+            return u;
         }
 
-        return id;
+        return null;
     }
 
     /**

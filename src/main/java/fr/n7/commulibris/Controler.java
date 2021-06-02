@@ -8,10 +8,7 @@ import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.*;
 
@@ -27,6 +24,7 @@ public class Controler extends HttpServlet {
     private final static String ACTION_PARAMETER = "action";
     private final static String ACTION_CREATE_UTILISATEUR = "createUtilisateur";
     private final static String ACTION_AUTHENTICATE_UTILISATEUR = "authenticateUtilisateur";
+    private final static String ACTION_LOGOUT_UTILISATEUR = "logoutUtilisateur";
     private final static String ACTION_GET_LIVRES = "getLivres";
     private final static String ACTION_GET_LIVRE = "getLivre";
     private final static String ACTION_GET_LIVRES_BY = "getLivresBy";
@@ -105,13 +103,13 @@ public class Controler extends HttpServlet {
         String mdp = req.getParameter("mdp");
 
         // Vérifier l'authentification
-        int id = this.f.authenticateUtilisateur(pseudonyme, mdp);
+        Utilisateur utilisateur = this.f.authenticateUtilisateur(pseudonyme, mdp);
 
         // Envoyer la réponse
-        if (id >= 0) {
-            // Ajouter un cookie relatif à l'authentification
-            Cookie utilisateurCookie = new Cookie("utilisateur", String.valueOf(id));
-            rep.addCookie(utilisateurCookie);
+        if (utilisateur.getId() >= 0) {
+            // Ajouter un cookie relatif à l'authentificationZ
+            HttpSession session = req.getSession();
+            session.setAttribute("utilisateur", utilisateur);
 
             // Afficher un message de succès
             successMessage(req, rep, "Vous avez été authentifié.");
@@ -119,6 +117,17 @@ public class Controler extends HttpServlet {
             // Afficher un message d'erreur
             errorMessage(req, rep, "Authentification incorrecte. Aucun compte n'existe avec ces identifiants.");
         }
+    };
+
+    /**
+     * Déconnecter un utilisateur.
+     */
+    private final Action actionLogoutUtilisateur = (req, rep) -> {
+        HttpSession session = req.getSession(false);
+        if (session != null) {
+            session.removeAttribute("utilisateur");
+        }
+        rep.sendRedirect("");
     };
 
     /**
@@ -161,13 +170,13 @@ public class Controler extends HttpServlet {
      * genres : genres
      */
     private final Action actionAddLivre = (req, rep) -> {
-        // Récupération du cookie de connexion
-        Optional<String> cookie = getCookie(req.getCookies(), "utilisateur");
-        boolean valid = cookie.isPresent();
+        // Récupération de l'utilisateur
+        Utilisateur utilisateur = isLogged(req);
+        boolean valid = utilisateur != null;
 
         if (valid) {
             // Récupération des informations de la requête
-            int proprietaire = Integer.parseInt(cookie.get());
+            int proprietaire = utilisateur.getId();
             String auteur = req.getParameter("auteur");
             String nom = req.getParameter("nom");
             String imageUrl = req.getParameter("image_url");
@@ -217,13 +226,13 @@ public class Controler extends HttpServlet {
      * Nécessite d'être connecté.
      */
     private final Action actionAccesProfil = (req, rep) -> {
-        // Récupération du cookie de connexion
-        Optional<String> cookie = getCookie(req.getCookies(), "utilisateur");
-        boolean valid = cookie.isPresent();
+        // Récupération de l'utilisateur
+        Utilisateur utilisateur = isLogged(req);
+        boolean valid = utilisateur != null;
 
         if (valid) {
             // Récupération de l'utilisateur
-            int id = Integer.parseInt(cookie.get());
+            int id = utilisateur.getId();
             Utilisateur u = this.f.getUtilisateurById(id);
 
             valid = u != null;
@@ -268,19 +277,14 @@ public class Controler extends HttpServlet {
      * cible : identifiant de la cible
      */
     private final Action actionRequestAddAvis = (req, rep) -> {
-        // Récupération du cookie de connexion
-        Optional<String> cookie = getCookie(req.getCookies(), "utilisateur");
-        boolean valid = cookie.isPresent();
+        // Récupération de l'utilisateur
+        Utilisateur utilisateur = isLogged(req);
+        boolean valid = utilisateur != null;
 
         if (valid) {
-            Utilisateur u = this.f.getUtilisateurById(Integer.parseInt(cookie.get()));
-            valid = u != null;
-
-            if (valid) {
-                req.setAttribute("cible", u);
-                RequestDispatcher rd = req.getRequestDispatcher("user_review.jsp");
-                rd.forward(req, rep);
-            }
+            req.setAttribute("cible", utilisateur);
+            RequestDispatcher rd = req.getRequestDispatcher("user_review.jsp");
+            rd.forward(req, rep);
         }
 
         if (!valid) {
@@ -295,13 +299,13 @@ public class Controler extends HttpServlet {
      * desc : description
      */
     private final Action actionAddAvis = (req, rep) -> {
-        // Récupération du cookie de connexion
-        Optional<String> cookie = getCookie(req.getCookies(), "utilisateur");
-        boolean valid = cookie.isPresent();
+        // Récupération de l'utilisateur
+        Utilisateur utilisateur = isLogged(req);
+        boolean valid = utilisateur != null;
 
         if (valid) {
             // Récupération des paramètres
-            int source = Integer.parseInt(cookie.get());
+            int source = utilisateur.getId();
             int cible = Integer.parseInt(req.getParameter("cible"));
             int note = Integer.parseInt(req.getParameter("note"));
             String desc = req.getParameter("desc"); // Autorisé vide.
@@ -330,6 +334,7 @@ public class Controler extends HttpServlet {
         this.actions.put(ACTION_GET_LIVRES_BY, actionGetLivresBy);
         this.actions.put(ACTION_CREATE_UTILISATEUR, actionCreateUtilisateur);
         this.actions.put(ACTION_AUTHENTICATE_UTILISATEUR, actionAuthenticateUtilisateur);
+        this.actions.put(ACTION_LOGOUT_UTILISATEUR, actionLogoutUtilisateur);
         this.actions.put(ACTION_ACCESS_PROFIL, actionAccesProfil);
         this.actions.put(ACTION_ACCESS_OTHER_PROFIL, actionAccessOtherProfil);
     }
@@ -371,6 +376,20 @@ public class Controler extends HttpServlet {
                 .filter(c -> key.equals(c.getName()))
                 .map(Cookie::getValue)
                 .findAny();
+    }
+
+    /**
+     * Vérifie si un utilisateur est connecté
+     * @param req requête
+     * @return Utilisateur utilisateur
+     */
+    private static Utilisateur isLogged(HttpServletRequest req) {
+        HttpSession session = req.getSession(false);
+        Utilisateur utilisateur = null;
+        if (session != null) {
+            utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+        }
+        return utilisateur;
     }
 
     /**
