@@ -14,7 +14,7 @@
 
     <p><%= errorMessage %></p>
 
-    <p><a href="index.jsp">Revenir sur le droit chemin</a></p>
+    <p><a href="controler">Revenir sur le droit chemin</a></p>
 
 </article>
 

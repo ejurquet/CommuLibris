@@ -14,7 +14,7 @@
 
     <p><%= successMessage %></p>
 
-    <p><a href="index.jsp">Revenir sur la page d'accueil</a></p>
+    <p><a href="controler">Revenir sur la page d'accueil</a></p>
 
 </article>
 

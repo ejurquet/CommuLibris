@@ -26,6 +26,7 @@ public class Facade {
     private final static String LIVRES_AUTHOR_QUERY = "FROM Livre WHERE auteur LIKE %:sauteur%";
     private final static String COUNT_LIVRES_QUERY = "SELECT count(1) FROM Livre";
     private final static String COUNT_UTILISATEURS_QUERY = "SELECT count(1) FROM Utilisateur";
+    private final static String LATEST_LIVRES = "FROM Livre ORDER BY id DESC";
 
     @PersistenceContext
     private EntityManager em; // Gestionnaire de la base de donnée
@@ -151,7 +152,7 @@ public class Facade {
      * @param participants identifiants des participants
      * @param nom nom
      */
-    public Conversation addConversation(int[] participants, String nom) {
+    public void addConversation(int[] participants, String nom) {
         Conversation c = new Conversation(); // Création de l'objet
 
         // Récupération des participants
@@ -165,7 +166,6 @@ public class Facade {
         c.setParticipants(p);
 
         this.em.persist(c); // Persistence
-        return c;
     }
 
     /**
@@ -201,6 +201,18 @@ public class Facade {
     public List<Utilisateur> getAllUtilisateurs() {
         TypedQuery<Utilisateur> query = this.em.createQuery(ALL_UTILISATEURS_QUERY, Utilisateur.class);
         return query.getResultList();
+    }
+
+    public List<Livre> getLatestLivres() {
+        // Initialisations
+        TypedQuery<Livre> query = this.em.createQuery(LATEST_LIVRES, Livre.class);
+        List<Livre> livres = query.getResultList();
+
+        if (livres.size() > 0) {
+            livres = livres.subList(0, livres.size());
+        }
+
+        return livres;
     }
 
     /**

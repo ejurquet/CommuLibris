@@ -22,6 +22,7 @@ public class Controler extends HttpServlet {
 
     // Descripteurs
     private final static String ACTION_PARAMETER = "action";
+    private final static String ACTION_ACCESS_ACCUEIL = "accessAccueil";
     private final static String ACTION_CREATE_UTILISATEUR = "createUtilisateur";
     private final static String ACTION_AUTHENTICATE_UTILISATEUR = "authenticateUtilisateur";
     private final static String ACTION_LOGOUT_UTILISATEUR = "logoutUtilisateur";
@@ -67,6 +68,18 @@ public class Controler extends HttpServlet {
         void execute(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException;
 
     }
+
+    /**
+     * Accéder à la page d'accueil.
+     */
+    private final Action actionAccessAccueil = (req, rep) -> {
+        List<Livre> livres = this.f.getLatestLivres();
+
+        // Configuration et envoi de la réponse
+        req.setAttribute("livres", livres);
+        RequestDispatcher rd = req.getRequestDispatcher("index.jsp"); // Redirection vers cette page
+        rd.forward(req, rep);
+    };
 
     /**
      * Créer un utilisateur.
@@ -368,8 +381,7 @@ public class Controler extends HttpServlet {
 
             if (valid) {
                 // Ajout à la BDD
-                Conversation c = this.f.addConversation(participants, nom);
-                System.out.println(c.getId());
+                this.f.addConversation(participants, nom);
                 successMessage(req, rep, "Conversation démarrée accédez-y via votre profil.");
             }
         }
@@ -444,6 +456,8 @@ public class Controler extends HttpServlet {
         super();
         this.bnf = new Bnf();
         this.actions = new HashMap<>();
+        this.actions.put("", actionAccessAccueil); // Redirection par défaut
+        this.actions.put(ACTION_ACCESS_ACCUEIL, actionAccessAccueil);
         this.actions.put(ACTION_GET_LIVRES, actionGetLivres);
         this.actions.put(ACTION_GET_LIVRE, actionGetLivre);
         this.actions.put(ACTION_ADD_LIVRE, actionAddLivre);
@@ -526,7 +540,7 @@ public class Controler extends HttpServlet {
             // On suppose l'existence d'un paramètre action
             // qui décrit la requête faite au serveur
             String actionName = req.getParameter(ACTION_PARAMETER);
-            actionName = actionName != null ? actionName : "inexistante";
+            actionName = actionName != null ? actionName : "";
 
             // On récupère l'action et on l'exécute
             Action action = this.actions.get(actionName);

@@ -1,5 +1,11 @@
+<%@ page import="fr.n7.commulibris.entities.Livre" %>
+<%@ page import="java.util.List" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@include file="begin.jsp"%>
+
+<%
+    List<?> livres = (List<?>) request.getAttribute("livres");
+%>
 
 <form class="" action="controler" method="get">
     <label class="search_box">
@@ -23,25 +29,20 @@
 
 <section class="">
 
+    <% if (!livres.isEmpty()) { %>
     <h2>Ajoutés récemment :</h2>
 
     <div class="cards">
+    <%
+        for (Object o : livres) {
+        Livre l = (Livre) o;
+    %>
         <div class="card">
-            <img src="img/book2.jpg" alt="">
+            <a href="controler?action=getLivre&livreId=<%= l.getId() %>"><img src="<%= l.getImageUrl() %>" alt="<%= l.getNom() %>"></a>
         </div>
-        <div class="card">
-            <img src="img/book3.jpg" alt="">
-        </div>
-        <div class="card">
-            <img src="img/book4.jpg" alt="">
-        </div>
-        <div class="card">
-            <img src="img/book5.jpg" alt="">
-        </div>
-        <div class="card">
-            <img src="img/book6.jpg" alt="">
-        </div>
+    <% } %>
     </div>
+    <% } %>
 
 </section>
 
