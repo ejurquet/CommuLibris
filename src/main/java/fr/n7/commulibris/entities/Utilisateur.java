@@ -21,13 +21,13 @@ public class Utilisateur {
     @OneToMany(mappedBy="proprietaire", fetch=FetchType.EAGER)
     private List<Livre> livres; // Livres de l'utilisateur (bidirectionnelle)
 
-    @OneToMany(mappedBy="source")
+    @OneToMany(mappedBy="source", fetch=FetchType.EAGER)
     private List<Avis> avisDonnes; // Avis donnés (bidirectionnelle)
 
-    @OneToMany(mappedBy="cible")
+    @OneToMany(mappedBy="cible", fetch=FetchType.EAGER)
     private List<Avis> avisRecu; // Avis reçus (bidirectionnelle)
 
-    @ManyToMany(mappedBy="participants")
+    @ManyToMany(mappedBy="participants", fetch=FetchType.EAGER)
     private List<Conversation> conversations; // Conversations (bidirectionnelle)
 
     /**
