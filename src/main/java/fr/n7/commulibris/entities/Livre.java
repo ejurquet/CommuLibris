@@ -23,7 +23,7 @@ public class Livre {
     @ElementCollection
     private List<String> genres; // Liste des genres du livre
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     private Utilisateur proprietaire; // Propriétaire du livre (bidirectionnelle)
 
     /**

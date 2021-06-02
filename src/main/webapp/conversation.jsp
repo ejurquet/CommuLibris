@@ -10,9 +10,7 @@
 %>
 
 <% for (Message m : conv.getMessages()) { %>
-    <div class="card">
-        <%= m.getAuteur()%> : <%= m.getTexte() %>
-    </div>
+    <%= m.getAuteur().getPseudonyme() %> : <%= m.getTexte() %>
 <% } %>
 
 <form class="message" action="controler" method="get">
@@ -25,7 +23,7 @@
 
     <!-- Implanter l'action addMessage -->
     <input type="hidden" name="action" value="addMessage">
-    <input type="hidden" name="conversation" value="<%= conv %>>">
+    <input type="hidden" name="cible" value="<%= conv.getId() %>">
 
     <button class="btn" type="submit">Envoyer</button>
 

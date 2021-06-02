@@ -151,7 +151,7 @@ public class Facade {
      * @param participants identifiants des participants
      * @param nom nom
      */
-    public void addConversation(int[] participants, String nom) {
+    public Conversation addConversation(int[] participants, String nom) {
         Conversation c = new Conversation(); // Création de l'objet
 
         // Récupération des participants
@@ -165,6 +165,7 @@ public class Facade {
         c.setParticipants(p);
 
         this.em.persist(c); // Persistence
+        return c;
     }
 
     /**

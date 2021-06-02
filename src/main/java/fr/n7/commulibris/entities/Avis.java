@@ -1,9 +1,6 @@
 package fr.n7.commulibris.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * Classe permettant de décrire les avis qu'un utilisateur
@@ -21,10 +18,10 @@ public class Avis {
     private String texte; // Texte de l'avis
     private int note; // Note de l'avis
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     private Utilisateur cible; // Cible de l'avis (bidirectionnelle)
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     private Utilisateur source; // Source de l'avis (bidirectionnelle)
 
     /**

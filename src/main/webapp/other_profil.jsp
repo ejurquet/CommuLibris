@@ -75,7 +75,7 @@
   <% if(request.getSession().getAttribute("utilisateur") != null) { %>
   <div class="buttons">
     <a class="btn" href="controler?action=requestAddAvis&cible=<%= u.getId() %>">Donner un avis</a>
-    <a class="btn" href="controler?action=requestAddMessage&cible=<%= u.getId() %>">Envoyer un message</a>
+    <a class="btn" href="controler?action=requestStartConv&cible=<%= u.getId() %>">Envoyer un message</a>
   </div>
   <% } %>
 
