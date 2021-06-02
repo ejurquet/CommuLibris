@@ -24,6 +24,9 @@
 
     <textarea name="desc" rows="8" cols="40" id="desc" placeholder="Écrivez votre message ici."></textarea>
 
+    <!-- Implanter l'action addMessage -->
+    <input type="hidden" name="action" value="addMessage">
+    <input type="hidden" name="conversation" value="<%= conv %>>">
 
     <button class="btn" type="submit">Envoyer</button>
 
