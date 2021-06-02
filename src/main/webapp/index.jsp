@@ -1,17 +1,17 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@include file="begin.jsp"%>
 
-<label class="search_box">
-    <form class="" action="controler" method="get">
+<form class="" action="controler" method="get">
+    <label class="search_box">
 
         <svg viewBox="0 0 20 20">
             <use xlink:href="icons/icons.svg#search"></use>
         </svg>
-        <input type="submit" name="terme" value="" placeholder="Rechercher un livre, un auteur...">
+        <input type="text" name="terme" value="" placeholder="Rechercher un livre, un auteur...">
         <input type="hidden" name="action" value="getLivresBy">
 
-    </form>
-</label>
+    </label>
+</form>
 
 <section class="hero">
     <div class="title">
