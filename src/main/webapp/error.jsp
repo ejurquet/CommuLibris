@@ -7,7 +7,7 @@
 
 <%
     String errorMessage = (String) request.getAttribute("erreur");
-    errorMessage = errorMessage != null ? errorMessage : "Erreur inconnue";
+    errorMessage = errorMessage != null ? errorMessage : "Quelque chose s'est mal passé. Réessayez ultèrieurement !";
 %>
 <%= errorMessage %>
 
