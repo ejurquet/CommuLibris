@@ -29,12 +29,12 @@
         <input type="hidden" name="action" value="addLivre">
 
         <h2>Catégories :</h2>
+        <label for="roman"> Roman</label>
         <input type="checkbox" id="roman" name="roman" value="Roman">
-        <label for="roman"> Roman</label><br>
+        <label for="bd"> Bande dessinée</label>
         <input type="checkbox" id="bd" name="bd" value="Bande dessinée">
-        <label for="bd"> Bande dessinée</label><br>
+        <label for="manuel"> Manuel scolaire</label>
         <input type="checkbox" id="manuel" name="manuel" value="Manuel scolaire">
-        <label for="bd"> Manuel scolaire</label><br>
 
         <button class="btn" type="submit" name="button">Sauvegarder</button>
 

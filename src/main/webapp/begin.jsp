@@ -17,7 +17,7 @@
     </button>
 
     <!-- logo -->
-    <a href="index.jsp">
+    <a href="controler">
         <img class="logo" src="img/logo.png" alt="">
     </a>
 

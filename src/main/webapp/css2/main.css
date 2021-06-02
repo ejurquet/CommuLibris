@@ -239,7 +239,7 @@ article form .title {
   font-weight: bold;
   line-height: 1.5;
 }
-article form label, article form .rate {
+article form .rate {
   display: block;
   margin: 2rem 0;
 }
