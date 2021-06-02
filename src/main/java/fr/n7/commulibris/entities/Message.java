@@ -16,7 +16,7 @@ public class Message {
 
     private String texte; // Texte du message
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     private Utilisateur auteur; // Auteur du message (unidirectionnelle)
 
     /**

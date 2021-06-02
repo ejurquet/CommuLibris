@@ -33,6 +33,10 @@ public class Controler extends HttpServlet {
     private final static String ACTION_ACCESS_OTHER_PROFIL = "accessOtherProfil";
     private final static String ACTION_REQUEST_ADD_AVIS = "requestAddAvis";
     private final static String ACTION_ADD_AVIS = "addAvis";
+    private final static String ACTION_REQUEST_START_CONV = "requestStartConv";
+    private final static String ACTION_START_CONV = "startConv";
+    private final static String ACTION_ACCESS_CONV = "accessConv";
+    private final static String ACTION_ADD_MSG = "addMessage";
 
     /**
      * Communication avec nos entités.
@@ -359,13 +363,13 @@ public class Controler extends HttpServlet {
             // Récupération des paramètres
             int[] participants = new int[] {utilisateur.getId(), Integer.parseInt(req.getParameter("cible"))};
             String nom = req.getParameter("nom");
-//            String desc = req.getParameter("desc");
 
             valid = nom != null;
 
             if (valid) {
                 // Ajout à la BDD
-                this.f.addConversation(participants, nom);
+                Conversation c = this.f.addConversation(participants, nom);
+                System.out.println(c.getId());
                 successMessage(req, rep, "Conversation démarrée accédez-y via votre profil.");
             }
         }
@@ -388,11 +392,10 @@ public class Controler extends HttpServlet {
             // Récupération des paramètres
             int id = Integer.parseInt(req.getParameter("cible"));
             Conversation c = this.f.getConversationById(id);
-
-            valid = c != null && c.getParticipants().contains(utilisateur);
+            valid = c != null; // && c.getParticipants().contains(utilisateur);
 
             if (valid) {
-                req.setAttribute("cible", c);
+                req.setAttribute("conv", c);
                 RequestDispatcher rd = req.getRequestDispatcher("conversation.jsp");
                 rd.forward(req, rep);
             }
@@ -403,8 +406,35 @@ public class Controler extends HttpServlet {
         }
     };
 
+    /**
+     * Ajouter un message à une conversation.
+     * cible : identifiant de la conversation
+     * desc : texte du message
+     */
     private final Action actionAddMessage = (req, rep) -> {
+        // Récupération de l'utilisateur
+        Utilisateur utilisateur = isLogged(req);
+        boolean valid = utilisateur != null;
 
+        if (valid) {
+            // Récupération des paramètres
+            int id = Integer.parseInt(req.getParameter("cible"));
+            String texte = req.getParameter("desc");
+            Conversation c = this.f.getConversationById(id);
+
+            valid = c != null; // && c.getParticipants().contains(utilisateur);
+
+            if (valid) {
+                this.f.addMessage(id, utilisateur.getId(), texte);
+                req.setAttribute("conv", c);
+                RequestDispatcher rd = req.getRequestDispatcher("conversation.jsp");
+                rd.forward(req, rep);
+            }
+        }
+
+        if (!valid) {
+            errorMessage(req, rep, "Impossible d'accéder à cette conversation.");
+        }
     };
 
     /**
@@ -425,6 +455,10 @@ public class Controler extends HttpServlet {
         this.actions.put(ACTION_ACCESS_OTHER_PROFIL, actionAccessOtherProfil);
         this.actions.put(ACTION_REQUEST_ADD_AVIS, actionRequestAddAvis);
         this.actions.put(ACTION_ADD_AVIS, actionAddAvis);
+        this.actions.put(ACTION_REQUEST_START_CONV, actionRequestStartConversation);
+        this.actions.put(ACTION_START_CONV, actionStartConversation);
+        this.actions.put(ACTION_ACCESS_CONV, actionAccessConversation);
+        this.actions.put(ACTION_ADD_MSG, actionAddMessage);
     }
 
     /**

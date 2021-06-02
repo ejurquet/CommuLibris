@@ -17,10 +17,10 @@ public class Conversation {
 
     private String nom; // Nom de la conversation
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     private List<Utilisateur> participants; // Liste des utilisateurs participant (bidirectionnelle)
 
-    @OneToMany
+    @OneToMany(fetch=FetchType.EAGER)
     private List<Message> messages; // Liste des messages (unidirectionelle)
 
     /**
