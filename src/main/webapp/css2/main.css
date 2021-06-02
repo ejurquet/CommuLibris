@@ -511,6 +511,8 @@ article.book img {
   border-radius: 10px;
 }
 article.book .bottom_desc {
+  max-width: 400px;
+  margin: 0 auto;
   padding: 1rem;
   background-color: #f5f5f8;
 }
