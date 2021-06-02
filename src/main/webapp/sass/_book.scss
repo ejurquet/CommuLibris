@@ -43,7 +43,7 @@ article.book {
 			display: flex;
 			justify-content: space-around;
 
-			& button {
+			& .btn {
 				&.contact {
 					background-color: $blue;
 				}

@@ -1,5 +1,6 @@
 <%@ page import="fr.n7.commulibris.entities.Utilisateur" %>
 <%@ page import="fr.n7.commulibris.entities.Livre" %>
+<%@ page import="fr.n7.commulibris.entities.Avis" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@include file="begin.jsp"%>
 
@@ -10,7 +11,7 @@
 <article class="profile">
 
   <div class="title">
-    <span class="color-blue">#<%= u.getPseudonyme() %></span>
+    <a class="color-blue" href="controler?action=accessOtherProfil&cible=<%= u.getId() %>">#<%= u.getPseudonyme() %></a>
   </div>
 
   <section class="">
@@ -29,10 +30,54 @@
 
   </section>
 
+  <section>
+
+    <h2>Avis reçus :</h2>
+
+    <table>
+      <tr>
+        <th>Utilisateur</th>
+        <th>Note</th>
+        <th>Avis</th>
+      </tr>
+
+      <% for (Avis avis : u.getAvisRecu()) { %>
+      <tr>
+        <td><a href="controler?action=accessOtherProfil&cible=<%= avis.getSource().getId() %>"><%= avis.getSource().getPseudonyme() %></a></td>
+        <td><%= avis.getNote() %> / 5</td>
+        <td><%= avis.getTexte() %></td>
+      </tr>
+      <% } %>
+    </table>
+  </section>
+
+  <section>
+
+    <h2>Avis donnés :</h2>
+
+    <table>
+      <tr>
+        <th>Utilisateur</th>
+        <th>Note</th>
+        <th>Avis</th>
+      </tr>
+
+      <% for (Avis avis : u.getAvisDonnes()) { %>
+      <tr>
+        <td><a href="controler?action=accessOtherProfil&cible=<%= avis.getCible().getId() %>"><%= avis.getCible().getPseudonyme() %></a></td>
+        <td><%= avis.getNote() %> / 5</td>
+        <td><%= avis.getTexte() %></td>
+      </tr>
+      <% } %>
+    </table>
+  </section>
+
+  <% if(request.getSession().getAttribute("utilisateur") != null) { %>
   <div class="buttons">
     <a class="btn" href="controler?action=requestAddAvis&cible=<%= u.getId() %>">Donner un avis</a>
     <a class="btn" href="controler?action=requestAddMessage&cible=<%= u.getId() %>">Envoyer un message</a>
   </div>
+  <% } %>
 
 </article>
 

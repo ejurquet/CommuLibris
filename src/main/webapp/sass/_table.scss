@@ -1,0 +1,20 @@
+table {
+  width: 100%;
+  max-width: 400px;
+  margin: 1rem auto;
+  border: 1px solid $black;
+  border-radius: $radius;
+
+  & tr:nth-child(even) {
+    background-color: $grey1;
+  }
+
+  & th {
+    font-weight: bold;
+  }
+
+  & th, td {
+    padding: 1rem;
+    text-align: center;
+  }
+}

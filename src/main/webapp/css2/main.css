@@ -304,6 +304,24 @@ article form button svg {
   font-size: 1.5em;
 }
 
+table {
+  width: 100%;
+  max-width: 400px;
+  margin: 1rem auto;
+  border: 1px solid #37373c;
+  border-radius: 10px;
+}
+table tr:nth-child(even) {
+  background-color: #f1f1f3;
+}
+table th {
+  font-weight: bold;
+}
+table th, table td {
+  padding: 1rem;
+  text-align: center;
+}
+
 .rate:not(:checked) > input {
   position: absolute;
   top: -9999px;
@@ -496,7 +514,7 @@ article.book .bottom_desc .buttons {
   display: flex;
   justify-content: space-around;
 }
-article.book .bottom_desc .buttons button {
+article.book .bottom_desc .buttons .btn {
   margin: 1rem auto;
   padding: 1rem 2rem;
   color: white;
@@ -504,10 +522,10 @@ article.book .bottom_desc .buttons button {
   font-weight: bold;
   border-radius: 10px;
 }
-article.book .bottom_desc .buttons button.contact {
+article.book .bottom_desc .buttons .btn.contact {
   background-color: #8080ff;
 }
-article.book .bottom_desc .buttons button.borrow {
+article.book .bottom_desc .buttons .btn.borrow {
   background-color: #9cdaa5;
 }
 
