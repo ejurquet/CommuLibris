@@ -1,5 +1,6 @@
 package fr.n7.commulibris;
 
+import fr.n7.commulibris.entities.Avis;
 import fr.n7.commulibris.entities.Livre;
 import fr.n7.commulibris.entities.Utilisateur;
 
@@ -31,6 +32,7 @@ public class Controler extends HttpServlet {
     private final static String ACTION_GET_LIVRES_BY = "getLivresBy";
     private final static String ACTION_ADD_LIVRE = "addLivre";
     private final static String ACTION_ACCESS_PROFIL = "accessProfil";
+    private final static String ACTION_ACCESS_OTHER_PROFIL = "accessOtherProfil";
 
     /**
      * Communication avec nos entités.
@@ -80,18 +82,14 @@ public class Controler extends HttpServlet {
             // Envoyer la réponse
             if (valid) {
                 // Afficher un message d'erreur
-                req.setAttribute("success", "Votre compte a bien été créé.");
-                RequestDispatcher rd = req.getRequestDispatcher("success.jsp"); // Redirection vers cette page
-                rd.forward(req, rep);
+                successMessage(req, rep, "Votre compte a bien été créé.");
             }
 
         }
 
         if (!valid) {
             // Afficher un message d'erreur
-            req.setAttribute("erreur", "Votre compte n'a pas pu être créé.");
-            RequestDispatcher rd = req.getRequestDispatcher("error.jsp");
-            rd.forward(req, rep);
+            errorMessage(req, rep, "Votre compte n'a pas pu être créé.");
         }
 
     };
@@ -116,14 +114,10 @@ public class Controler extends HttpServlet {
             rep.addCookie(utilisateurCookie);
 
             // Afficher un message de succès
-            req.setAttribute("success", "Vous avez été authentifié.");
-            RequestDispatcher rd = req.getRequestDispatcher("success.jsp"); // Redirection vers cette page
-            rd.forward(req, rep);
+            successMessage(req, rep, "Vous avez été authentifié.");
         } else {
             // Afficher un message d'erreur
-            req.setAttribute("erreur", "Authentification incorrecte. Aucun compte n'existe avec ces identifiants.");
-            RequestDispatcher rd = req.getRequestDispatcher("error.jsp");
-            rd.forward(req, rep);
+            errorMessage(req, rep, "Authentification incorrecte. Aucun compte n'existe avec ces identifiants.");
         }
     };
 
@@ -186,19 +180,14 @@ public class Controler extends HttpServlet {
                 this.f.addLivre(proprietaire, auteur, nom, imageUrl, description, genres);
 
                 // Envoyer la réponse
-                req.setAttribute("success", "Le livre a bien été ajouté.");
-                RequestDispatcher rd = req.getRequestDispatcher("success.jsp"); // Redirection vers cette page
-                rd.forward(req, rep);
+                successMessage(req, rep, "Le livre a bien été ajouté.");
             }
             //this.f.addLivre(proprietaire, auteur, nom, genres);
 
         }
 
         if (!valid) {
-            // Envoyer la réponse
-            req.setAttribute("erreur", "Impossible d'ajouter le livre.");
-            RequestDispatcher rd = req.getRequestDispatcher("error.jsp"); // Redirection vers cette page
-            rd.forward(req, rep);
+            errorMessage(req, rep, "Impossible d'ajouter le livre.");
         }
     };
 
@@ -248,11 +237,84 @@ public class Controler extends HttpServlet {
         }
 
         if (!valid) {
-            // Afficher un message d'erreur
-            req.setAttribute("erreur", "Vous n'êtes pas connecté.");
-            RequestDispatcher rd = req.getRequestDispatcher("error.jsp");
+            errorMessage(req, rep, "Vous n'êtes pas connecté.");
+        }
+    };
+
+    /**
+     * Accèder au profil d'une autre personne.
+     * cible : cible
+     */
+    private final Action actionAccessOtherProfil = (req, rep) -> {
+        // Récupération du paramètre et initialisations
+        int cible = Integer.parseInt(req.getParameter("cible"));
+        Utilisateur u = this.f.getUtilisateurById(cible);
+        boolean valid = u != null;
+
+        if (valid) {
+            // Envoyer la réponse
+            req.setAttribute("utilisateur", u);
+            RequestDispatcher rd = req.getRequestDispatcher("other_profil.jsp");
             rd.forward(req, rep);
         }
+
+        if (!valid) {
+            errorMessage(req, rep, "Ce profil n'existe pas !.");
+        }
+    };
+
+    /**
+     * Ouvrir la page pour ajouter un avis.
+     * cible : identifiant de la cible
+     */
+    private final Action actionRequestAddAvis = (req, rep) -> {
+        // Récupération du cookie de connexion
+        Optional<String> cookie = getCookie(req.getCookies(), "utilisateur");
+        boolean valid = cookie.isPresent();
+
+        if (valid) {
+            Utilisateur u = this.f.getUtilisateurById(Integer.parseInt(cookie.get()));
+            valid = u != null;
+
+            if (valid) {
+                req.setAttribute("cible", u);
+                RequestDispatcher rd = req.getRequestDispatcher("user_review.jsp");
+                rd.forward(req, rep);
+            }
+        }
+
+        if (!valid) {
+            errorMessage(req, rep, "Impossible d'accèder à la page pour ajouter un avis.");
+        }
+    };
+
+    /**
+     * Ajouter un avis.
+     * cible : identifiant de la cible
+     * note : note
+     * desc : description
+     */
+    private final Action actionAddAvis = (req, rep) -> {
+        // Récupération du cookie de connexion
+        Optional<String> cookie = getCookie(req.getCookies(), "utilisateur");
+        boolean valid = cookie.isPresent();
+
+        if (valid) {
+            // Récupération des paramètres
+            int source = Integer.parseInt(cookie.get());
+            int cible = Integer.parseInt(req.getParameter("cible"));
+            int note = Integer.parseInt(req.getParameter("note"));
+            String desc = req.getParameter("desc"); // Autorisé vide.
+            desc = desc.isEmpty() ? "Aucune explication." : desc;
+
+            // Ajout à la BDD
+            this.f.addAvis(source, cible, note, desc);
+        }
+
+        if (!valid) {
+            errorMessage(req, rep, "Impossible d'ajouter cet avis.");
+        }
+
     };
 
     /**
@@ -269,6 +331,33 @@ public class Controler extends HttpServlet {
         this.actions.put(ACTION_CREATE_UTILISATEUR, actionCreateUtilisateur);
         this.actions.put(ACTION_AUTHENTICATE_UTILISATEUR, actionAuthenticateUtilisateur);
         this.actions.put(ACTION_ACCESS_PROFIL, actionAccesProfil);
+        this.actions.put(ACTION_ACCESS_OTHER_PROFIL, actionAccessOtherProfil);
+    }
+
+    /**
+     * Afficher un message d'erreur.
+     * @param req requête
+     * @param rep réponse
+     * @param message message
+     */
+    private static void errorMessage(HttpServletRequest req, HttpServletResponse rep, String message)
+            throws ServletException, IOException {
+        req.setAttribute("erreur", message);
+        RequestDispatcher rd = req.getRequestDispatcher("error.jsp");
+        rd.forward(req, rep);
+    }
+
+    /**
+     * Afficher un message de succès.
+     * @param req requête
+     * @param rep réponse
+     * @param message message
+     */
+    private static void successMessage(HttpServletRequest req, HttpServletResponse rep, String message)
+            throws ServletException, IOException {
+        req.setAttribute("success", message);
+        RequestDispatcher rd = req.getRequestDispatcher("success.jsp");
+        rd.forward(req, rep);
     }
 
     /**

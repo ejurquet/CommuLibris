@@ -17,6 +17,7 @@
     <a href="controler?livreId=<%= l.getId() %>&action=getLivre">
         <div class="card">
             <img src="<%= l.getImageUrl() %>" alt="<%= l.getNom() %>">
+            <%= l.getNom() %>
         </div>
     </a>
 <% } %>
