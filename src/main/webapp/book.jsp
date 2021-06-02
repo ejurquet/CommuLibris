@@ -11,8 +11,8 @@
     <section class="top_desc">
         <img src="<%= livre.getImageUrl() %>" alt="" class="cover">
 
-        <h2><%= livre.getNom() %></h2>
-        <h3><%= livre.getAuteur() %></h3>
+        <h2><%= livre.getAuteur() %></h2>
+        <h3><%= livre.getNom() %></h3>
     </section>
 
     <section class="bottom_desc">

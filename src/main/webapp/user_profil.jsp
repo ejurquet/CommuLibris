@@ -31,7 +31,7 @@
 
     <div class="buttons">
         <a class="btn" href="book_add.jsp">
-            <svg class="icon"><use xlink:href="icons/icons.svg#book"></use></svg>
+            <svg class="icon2"><use xlink:href="icons/icons.svg#book"></use></svg>
             <span>Ajouter un livre</span>
         </a>
     </div>
