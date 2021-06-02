@@ -6,7 +6,7 @@
 <article class="conversation">
 
 <%
-    Conversation conv = new Conversation();
+    Conversation conv = (Conversation) request.getAttribute("conv");
 %>
 
 <% for (Message m : conv.getMessages()) { %>
@@ -15,8 +15,7 @@
     </div>
 <% } %>
 
-
-<form class="" action="controler" method="get">
+<form class="message" action="controler" method="get">
 
     <div class="title">
         Votre message :
