@@ -1,6 +1,5 @@
 package fr.n7.commulibris;
 
-import fr.n7.commulibris.entities.Avis;
 import fr.n7.commulibris.entities.Livre;
 import fr.n7.commulibris.entities.Utilisateur;
 
@@ -181,7 +180,7 @@ public class Controler extends HttpServlet {
             String nom = req.getParameter("nom");
             String imageUrl = req.getParameter("image_url");
             String description = req.getParameter("desc");
-            List<String> genres = new LinkedList<String>();
+            List<String> genres = new LinkedList<>();
 
             valid = !auteur.isEmpty() && !nom.isEmpty() && !imageUrl.isEmpty() && !description.isEmpty();
 
@@ -191,7 +190,6 @@ public class Controler extends HttpServlet {
                 // Envoyer la réponse
                 successMessage(req, rep, "Le livre a bien été ajouté.");
             }
-            //this.f.addLivre(proprietaire, auteur, nom, genres);
 
         }
 
