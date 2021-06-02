@@ -71,19 +71,25 @@ public class Controler extends HttpServlet {
         // Récupération des informations de la requête
         String pseudonyme = req.getParameter("pseudonyme");
         String mdp = req.getParameter("mdp");
+        boolean valid = !pseudonyme.isEmpty() && !mdp.isEmpty();
 
-        // Création de l'utilisateur
-        boolean done = this.f.createUtilisateur(pseudonyme, mdp);
+        if (valid) {
+            // Création de l'utilisateur
+            valid = this.f.createUtilisateur(pseudonyme, mdp);
 
-        // Envoyer la réponse
-        if (done) {
+            // Envoyer la réponse
+            if (valid) {
+                // Afficher un message d'erreur
+                req.setAttribute("success", "Votre compte a bien été créé.");
+                RequestDispatcher rd = req.getRequestDispatcher("success.jsp"); // Redirection vers cette page
+                rd.forward(req, rep);
+            }
+
+        }
+
+        if (!valid) {
             // Afficher un message d'erreur
-            req.setAttribute("success", "Votre compte a bien été créé.");
-            RequestDispatcher rd = req.getRequestDispatcher("success.jsp"); // Redirection vers cette page
-            rd.forward(req, rep);
-        } else {
-            // Afficher un message d'erreur
-            req.setAttribute("erreur", "Votre compte n'a pas pu être créé. Le pseudonyme est déjà utilisé.");
+            req.setAttribute("erreur", "Votre compte n'a pas pu être créé.");
             RequestDispatcher rd = req.getRequestDispatcher("error.jsp");
             rd.forward(req, rep);
         }
@@ -145,16 +151,10 @@ public class Controler extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("livreId"));
 
         // Récupération du livre
-        //Livre livre = this.f.getLivreById(id);
-        Livre livre = new Livre();
-        livre.setId(1);
-        livre.setNom("Bob");
-        livre.setAuteur("Le Bricoleur");
+        Livre livre = this.f.getLivreById(id);
 
-        // Configuration de la réponse
+        // Configuration et envoi de la réponse
         req.setAttribute("livre", livre);
-
-        // Envoyer la réponse
         RequestDispatcher rd = req.getRequestDispatcher("book.jsp"); // Redirection vers cette page
         rd.forward(req, rep);
     };
@@ -167,19 +167,39 @@ public class Controler extends HttpServlet {
      * genres : genres
      */
     private final Action actionAddLivre = (req, rep) -> {
-        // Récupération des informations de la requête
-        //int proprietaire = Integer.parseInt(req.getParameter("proprietaire"));
-        String auteur = req.getParameter("auteur");
-        String nom = req.getParameter("nom");
-        //List<String> genres = Arrays.asList(req.getParameterValues("genres"));
+        // Récupération du cookie de connexion
+        Optional<String> cookie = getCookie(req.getCookies(), "utilisateur");
+        boolean valid = cookie.isPresent();
 
-        // Ajout à la BDD
-        //this.f.addLivre(proprietaire, auteur, nom, genres);
-        // TODO : un peu de vérification et renvoi vers une page d'erreur
+        if (valid) {
+            // Récupération des informations de la requête
+            int proprietaire = Integer.parseInt(cookie.get());
+            String auteur = req.getParameter("auteur");
+            String nom = req.getParameter("nom");
+            String imageUrl = req.getParameter("image_url");
+            String description = req.getParameter("desc");
+            List<String> genres = new LinkedList<String>();
 
-        // Envoyer la réponse
-        RequestDispatcher rd = req.getRequestDispatcher("index.jsp"); // Redirection vers cette page
-        rd.forward(req, rep);
+            valid = !auteur.isEmpty() && !nom.isEmpty() && !imageUrl.isEmpty() && !description.isEmpty();
+
+            if (valid) {
+                this.f.addLivre(proprietaire, auteur, nom, imageUrl, description, genres);
+
+                // Envoyer la réponse
+                req.setAttribute("success", "Le livre a bien été ajouté.");
+                RequestDispatcher rd = req.getRequestDispatcher("success.jsp"); // Redirection vers cette page
+                rd.forward(req, rep);
+            }
+            //this.f.addLivre(proprietaire, auteur, nom, genres);
+
+        }
+
+        if (!valid) {
+            // Envoyer la réponse
+            req.setAttribute("erreur", "Impossible d'ajouter le livre.");
+            RequestDispatcher rd = req.getRequestDispatcher("error.jsp"); // Redirection vers cette page
+            rd.forward(req, rep);
+        }
     };
 
     /**
@@ -222,7 +242,7 @@ public class Controler extends HttpServlet {
             if (valid) {
                 // Réponse à la requête
                 req.setAttribute("utilisateur", u);
-                RequestDispatcher rd = req.getRequestDispatcher("profil.jsp");
+                RequestDispatcher rd = req.getRequestDispatcher("user_profil.jsp");
                 rd.forward(req, rep);
             }
         }

@@ -118,10 +118,12 @@ public class Facade {
      * @param auteur auteur
      * @param genres liste des genres
      */
-    public void addLivre(int proprietaire, String nom, String auteur, List<String> genres) {
+    public void addLivre(int proprietaire, String nom, String auteur, String imageUrl, String description, List<String> genres) {
         Livre l = new Livre(); // Création de l'objet
         l.setNom(nom);
         l.setAuteur(auteur);
+        l.setImageUrl(imageUrl);
+        l.setDescription(description);
         l.setGenres(genres);
         l.setProprietaire(this.getUtilisateurById(proprietaire));
 
