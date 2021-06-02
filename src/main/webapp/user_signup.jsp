@@ -6,9 +6,7 @@
     <form class="" action="controler" method="get">
 
         <div class="title">
-            <span class="color-blue">H</span>
-            <span class="color-green">e</span>
-            <span class="color-orange">y</span>,<br>
+            <span class="color-blue">H</span><span class="color-green">e</span><span class="color-orange">y</span>,<br>
             Inscrivez-vous.
         </div>
 

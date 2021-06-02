@@ -364,7 +364,7 @@ body.opened #menu-toggle {
 .nav {
   position: fixed;
   top: 0;
-  width: 80%;
+  width: 20%;
   height: 100%;
   display: grid;
   /* justify-content: center; */
@@ -407,7 +407,7 @@ body.opened #menu-toggle {
 }
 
 .opened .nav {
-  transform: translateX(20vw);
+  transform: translateX(80vw);
 }
 
 section > h2 {
