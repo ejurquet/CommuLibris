@@ -6,20 +6,28 @@
 <section class="">
 
 <%
-    List<Livre> results = (List<Livre>) request.getAttribute("livres");
+    String terme = (String) request.getAttribute("terme");
+    List<?> livres = (List<?>) request.getAttribute("livres");
 %>
 
-    <h2>Résultats :</h2>
+    <h2>Résultats pour <span class="color-blue"><%= terme %></span></h2>
 
+    <% if (!livres.isEmpty()) { %>
     <div class="cards">
 
-        <% for (Livre livre : results) { %>
+        <%
+            for (Object o : livres) {
+            Livre l = (Livre) o;
+        %>
             <div class="card">
-                <img src="<%= livre.getImageUrl()%>" alt="">
+                <a href="controler?action=getLivre&livreId=<%= l.getId() %>"><img src="<%= l.getImageUrl()%>" alt="<%= l.getNom() %>"></a>
             </div>
         <% } %>
 
     </div>
+    <% } else { %>
+    <h2>Aucun résultat</h2>
+    <% } %>
 
 </section>
 

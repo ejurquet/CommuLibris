@@ -13,7 +13,7 @@
         <svg viewBox="0 0 20 20">
             <use xlink:href="icons/icons.svg#search"></use>
         </svg>
-        <input type="text" name="terme" value="" placeholder="Rechercher un livre, un auteur...">
+        <input type="text" name="terme" id="terme" value="" placeholder="Rechercher un livre, un auteur...">
         <input type="hidden" name="action" value="getLivresBy">
 
     </label>

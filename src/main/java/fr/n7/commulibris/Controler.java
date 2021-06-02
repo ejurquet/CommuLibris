@@ -160,7 +160,7 @@ public class Controler extends HttpServlet {
         req.setAttribute("livres", livres);
 
         // Envoyer la réponse
-        RequestDispatcher rd = req.getRequestDispatcher("book_list.jsp"); // Redirection vers cette page
+        RequestDispatcher rd = req.getRequestDispatcher("research_result.jsp"); // Redirection vers cette page
         rd.forward(req, rep);
     };
 
@@ -225,6 +225,7 @@ public class Controler extends HttpServlet {
     private final Action actionGetLivresBy = (req, rep) -> {
         // Récupération des informations de la requête
         String terme = req.getParameter("terme");
+        terme = terme.isEmpty() ? "sans terme" : terme;
 
         // Obtenir la liste des livres
         List<Livre> livresAuteur = this.f.getLivresByAuteur(terme);
@@ -233,9 +234,10 @@ public class Controler extends HttpServlet {
 
         // Configurer la réponse, ajout de l'attribut
         req.setAttribute("livres", livresAuteur);
+        req.setAttribute("terme", terme);
 
         // Envoyer la réponse
-        RequestDispatcher rd = req.getRequestDispatcher("book_list.jsp"); // Redirection vers cette page
+        RequestDispatcher rd = req.getRequestDispatcher("research_results.jsp"); // Redirection vers cette page
         rd.forward(req, rep);
     };
 
