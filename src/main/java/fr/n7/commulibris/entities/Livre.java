@@ -17,6 +17,8 @@ public class Livre {
 
     private String nom; // Nom du livre
     private String auteur; // Auteur du livre
+    private String imageUrl; // Url de l'image
+    private String description; // Description du livre
 
     @ElementCollection
     private List<String> genres; // Liste des genres du livre
@@ -107,6 +109,38 @@ public class Livre {
      */
     public void setProprietaire(Utilisateur proprietaire) {
         this.proprietaire = proprietaire;
+    }
+
+    /**
+     * Obtenir le lien de l'image.
+     * @return url de l'image
+     */
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    /**
+     * Modifier l'url de l'image.
+     * @param imageUrl url
+     */
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    /**
+     * Obtenir la description du livre.
+     * @return description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Modifier la description du livre.
+     * @param description description
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }

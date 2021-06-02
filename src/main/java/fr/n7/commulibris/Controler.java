@@ -1,6 +1,7 @@
 package fr.n7.commulibris;
 
 import fr.n7.commulibris.entities.Livre;
+import fr.n7.commulibris.entities.Utilisateur;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -27,9 +28,9 @@ public class Controler extends HttpServlet {
     private final static String ACTION_AUTHENTICATE_UTILISATEUR = "authenticateUtilisateur";
     private final static String ACTION_GET_LIVRES = "getLivres";
     private final static String ACTION_GET_LIVRE = "getLivre";
-    private final static String ACTION_GET_LIVRES_NOM = "getLivresById";
-    private final static String ACTION_GET_LIVRES_AUTEUR = "getLivresByAuteur";
+    private final static String ACTION_GET_LIVRES_BY = "getLivresBy";
     private final static String ACTION_ADD_LIVRE = "addLivre";
+    private final static String ACTION_ACCESS_PROFIL = "accessProfil";
 
     /**
      * Communication avec nos entités.
@@ -185,15 +186,17 @@ public class Controler extends HttpServlet {
      * Obtenir la liste des livres par leur auteur.
      * auteur : auteur
      */
-    private final Action actionGetLivresByAuteur = (req, rep) -> {
+    private final Action actionGetLivresBy = (req, rep) -> {
         // Récupération des informations de la requête
-        String auteur = req.getParameter("auteur");
+        String terme = req.getParameter("terme");
 
         // Obtenir la liste des livres
-        List<Livre> livres = this.f.getLivresByAuteur(auteur);
+        List<Livre> livresAuteur = this.f.getLivresByAuteur(terme);
+        List<Livre> livresNom = this.f.getLivresByNom(terme);
+        livresAuteur.addAll(livresNom);
 
         // Configurer la réponse, ajout de l'attribut
-        req.setAttribute("livres", livres);
+        req.setAttribute("livres", livresAuteur);
 
         // Envoyer la réponse
         RequestDispatcher rd = req.getRequestDispatcher("book_list.jsp"); // Redirection vers cette page
@@ -201,22 +204,35 @@ public class Controler extends HttpServlet {
     };
 
     /**
-     * Obtenir la liste des livres par leur nom.
-     * nom : nom
+     * Accéder à son profil.
+     * Nécessite d'être connecté.
      */
-    private final Action actionGetLivresByNom = (req, rep) -> {
-        // Récupération des informations de la requête
-        String nom = req.getParameter("nom");
+    private final Action actionAccesProfil = (req, rep) -> {
+        // Récupération du cookie de connexion
+        Optional<String> cookie = getCookie(req.getCookies(), "utilisateur");
+        boolean valid = cookie.isPresent();
 
-        // Obtenir la liste des livres
-        List<Livre> livres = this.f.getLivresByNom(nom);
+        if (valid) {
+            // Récupération de l'utilisateur
+            int id = Integer.parseInt(cookie.get());
+            Utilisateur u = this.f.getUtilisateurById(id);
 
-        // Configurer la réponse, ajout de l'attribut
-        req.setAttribute("livres", livres);
+            valid = u != null;
 
-        // Envoyer la réponse
-        RequestDispatcher rd = req.getRequestDispatcher("book_list.jsp"); // Redirection vers cette page
-        rd.forward(req, rep);
+            if (valid) {
+                // Réponse à la requête
+                req.setAttribute("utilisateur", u);
+                RequestDispatcher rd = req.getRequestDispatcher("profil.jsp");
+                rd.forward(req, rep);
+            }
+        }
+
+        if (!valid) {
+            // Afficher un message d'erreur
+            req.setAttribute("erreur", "Vous n'êtes pas connecté.");
+            RequestDispatcher rd = req.getRequestDispatcher("error.jsp");
+            rd.forward(req, rep);
+        }
     };
 
     /**
@@ -229,10 +245,10 @@ public class Controler extends HttpServlet {
         this.actions.put(ACTION_GET_LIVRES, actionGetLivres);
         this.actions.put(ACTION_GET_LIVRE, actionGetLivre);
         this.actions.put(ACTION_ADD_LIVRE, actionAddLivre);
-        this.actions.put(ACTION_GET_LIVRES_NOM, actionGetLivresByNom);
-        this.actions.put(ACTION_GET_LIVRES_AUTEUR, actionGetLivresByAuteur);
+        this.actions.put(ACTION_GET_LIVRES_BY, actionGetLivresBy);
         this.actions.put(ACTION_CREATE_UTILISATEUR, actionCreateUtilisateur);
         this.actions.put(ACTION_AUTHENTICATE_UTILISATEUR, actionAuthenticateUtilisateur);
+        this.actions.put(ACTION_ACCESS_PROFIL, actionAccesProfil);
     }
 
     /**

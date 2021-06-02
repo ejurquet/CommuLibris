@@ -18,7 +18,7 @@ public class Utilisateur {
     private String pseudonyme; // Pseudonyme de l'utilisateur
     private String mdp; // Mot de passe de l'utilisateur
 
-    @OneToMany(mappedBy="proprietaire")
+    @OneToMany(mappedBy="proprietaire", fetch=FetchType.EAGER)
     private List<Livre> livres; // Livres de l'utilisateur (bidirectionnelle)
 
     @OneToMany(mappedBy="source")
