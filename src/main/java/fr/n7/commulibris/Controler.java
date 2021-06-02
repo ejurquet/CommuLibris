@@ -438,6 +438,7 @@ public class Controler extends HttpServlet {
 
             if (valid) {
                 this.f.addMessage(id, utilisateur.getId(), texte);
+                c = this.f.getConversationById(id);
                 req.setAttribute("conv", c);
                 RequestDispatcher rd = req.getRequestDispatcher("conversation.jsp");
                 rd.forward(req, rep);

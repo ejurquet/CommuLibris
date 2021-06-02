@@ -377,6 +377,10 @@ a {
   color: #8080ff;
 }
 
+b, strong {
+  font-weight: bold;
+}
+
 .title {
   font-size: 2rem;
   margin: 2rem 1rem;

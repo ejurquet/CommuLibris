@@ -9,17 +9,22 @@
     Conversation conv = (Conversation) request.getAttribute("conv");
 %>
 
-<% for (Message m : conv.getMessages()) { %>
-    <%= m.getAuteur().getPseudonyme() %> : <%= m.getTexte() %>
-<% } %>
-
 <form class="message" action="controler" method="get">
 
     <div class="title">
-        Votre message :
+        <%= conv.getNom() %>
     </div>
 
-    <textarea name="desc" rows="8" cols="40" id="desc" placeholder="Écrivez votre message ici."></textarea>
+    <section class="chat">
+
+
+    </section>
+
+    <% for (Message m : conv.getMessages()) { %>
+        <p><b><%= m.getAuteur().getPseudonyme() %></b> : <%= m.getTexte() %></p>
+    <% } %>
+
+    <textarea name="desc" rows="2" cols="40" id="desc" placeholder="Message"></textarea>
 
     <!-- Implanter l'action addMessage -->
     <input type="hidden" name="action" value="addMessage">
