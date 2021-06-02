@@ -69,14 +69,15 @@ public class Facade {
      * @return validation
      */
     public boolean createUtilisateur(String pseudonyme, String mdp) {
-        // Initialisations
+        // Vérification de la présence en BDD
         TypedQuery<Utilisateur> query = this.em.createQuery(UTILISATEUR_PSEUDO_QUERY, Utilisateur.class);
         query.setParameter("spseudonyme", pseudonyme);
+
         List<Utilisateur> ul = query.getResultList();
-        boolean created = !ul.isEmpty();
+        boolean canCreate = ul.isEmpty();
 
         // Création si possible
-        if (created) {
+        if (canCreate) {
             Utilisateur u = new Utilisateur(); // Création de l'objet
             u.setPseudonyme(pseudonyme);
             u.setMdp(mdp);
@@ -84,7 +85,7 @@ public class Facade {
             this.em.persist(u); // Persistence
         }
 
-        return created;
+        return canCreate;
     }
 
     /**

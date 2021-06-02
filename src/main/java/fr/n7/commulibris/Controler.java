@@ -11,10 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Classe contrôlant la communication avec notre page web.
@@ -74,15 +71,14 @@ public class Controler extends HttpServlet {
         String pseudonyme = req.getParameter("pseudonyme");
         String mdp = req.getParameter("mdp");
 
-        System.out.println(pseudonyme);
-        System.out.println(mdp);
-
         // Création de l'utilisateur
-        //boolean done = this.f.createUtilisateur(pseudonyme, mdp);
-/*
+        boolean done = this.f.createUtilisateur(pseudonyme, mdp);
+
         // Envoyer la réponse
         if (done) {
-            RequestDispatcher rd = req.getRequestDispatcher("book_list.jsp"); // Redirection vers cette page
+            // Afficher un message d'erreur
+            req.setAttribute("success", "Votre compte a bien été créé.");
+            RequestDispatcher rd = req.getRequestDispatcher("success.jsp"); // Redirection vers cette page
             rd.forward(req, rep);
         } else {
             // Afficher un message d'erreur
@@ -90,7 +86,7 @@ public class Controler extends HttpServlet {
             RequestDispatcher rd = req.getRequestDispatcher("error.jsp");
             rd.forward(req, rep);
         }
-*/
+
     };
 
     /**
@@ -103,9 +99,6 @@ public class Controler extends HttpServlet {
         String pseudonyme = req.getParameter("pseudonyme");
         String mdp = req.getParameter("mdp");
 
-        System.out.println(pseudonyme);
-        System.out.println(mdp);
-/*
         // Vérifier l'authentification
         int id = this.f.authenticateUtilisateur(pseudonyme, mdp);
 
@@ -115,16 +108,16 @@ public class Controler extends HttpServlet {
             Cookie utilisateurCookie = new Cookie("utilisateur", String.valueOf(id));
             rep.addCookie(utilisateurCookie);
 
-            // Répondre
-            RequestDispatcher rd = req.getRequestDispatcher("book_list.jsp"); // Redirection vers cette page
+            // Afficher un message de succès
+            req.setAttribute("success", "Vous avez été authentifié.");
+            RequestDispatcher rd = req.getRequestDispatcher("success.jsp"); // Redirection vers cette page
             rd.forward(req, rep);
         } else {
             // Afficher un message d'erreur
-            req.setAttribute("erreur", "Authentification incorrecte.");
+            req.setAttribute("erreur", "Authentification incorrecte. Aucun compte n'existe avec ces identifiants.");
             RequestDispatcher rd = req.getRequestDispatcher("error.jsp");
             rd.forward(req, rep);
         }
-*/
     };
 
     /**
@@ -240,6 +233,19 @@ public class Controler extends HttpServlet {
         this.actions.put(ACTION_GET_LIVRES_AUTEUR, actionGetLivresByAuteur);
         this.actions.put(ACTION_CREATE_UTILISATEUR, actionCreateUtilisateur);
         this.actions.put(ACTION_AUTHENTICATE_UTILISATEUR, actionAuthenticateUtilisateur);
+    }
+
+    /**
+     * Retrouver un cookie dans un tableau.
+     * @param cookies tableau de cookies
+     * @param key clef
+     * @return option cookie
+     */
+    private static Optional<String> getCookie(Cookie[] cookies, String key) {
+        return Arrays.stream(cookies)
+                .filter(c -> key.equals(c.getName()))
+                .map(Cookie::getValue)
+                .findAny();
     }
 
     /**
