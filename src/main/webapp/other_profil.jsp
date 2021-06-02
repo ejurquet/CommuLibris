@@ -19,6 +19,7 @@
     <h2>Ajoutés récemment :</h2>
 
     <div class="cards">
+
       <% for (Livre l : u.getLivres()) { %>
       <div class="card">
         <a href="controler?livreId=<%= l.getId() %>&action=getLivre">

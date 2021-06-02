@@ -1,6 +1,7 @@
 <%@ page import="fr.n7.commulibris.entities.Utilisateur" %>
 <%@ page import="fr.n7.commulibris.entities.Livre" %>
 <%@ page import="fr.n7.commulibris.entities.Avis" %>
+<%@ page import="fr.n7.commulibris.entities.Conversation" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@include file="begin.jsp"%>
 
@@ -37,6 +38,31 @@
             <span>Ajouter un livre</span>
         </a>
     </div>
+
+    <section>
+
+        <h2>Conversations :</h2>
+
+        <table>
+            <tr>
+                <th>Converation</th>
+                <th>Participants</th>
+            </tr>
+
+            <% for (Conversation conversation : u.getConversations()) { %>
+            <tr>
+                <td><a href="controler?action=accessConv&cible=<%= conversation.getId() %>"><%= conversation.getNom() %></a></td>
+                <td>
+                    <ul>
+                        <% for (Utilisateur utilisateur : conversation.getParticipants()) { %>
+                        <li><a href="controler?action=accessOtherProfil&cible=<%= utilisateur.getId() %>"><%= utilisateur.getPseudonyme() %></a></li>
+                        <% } %>
+                    </ul>
+                </td>
+            </tr>
+            <% } %>
+        </table>
+    </section>
 
     <section>
 
