@@ -52,11 +52,11 @@
     <div class="cards">
 
         <a href="#" class="card" style="background-image: url('img/roman.jpg')">
-            <p>Roman</p>
+            <p>Romans</p>
         </a>
 
         <a href="#" class="card" style="background-image: url('img/bd.jpg')">
-            <p>Bande-dessinée</p>
+            <p>Bandes dessinées</p>
         </a>
 
         <a href="#" class="card" style="background-image: url('img/ms.jpg')">
