@@ -29,7 +29,7 @@
             <label for="star1" title="text">1 star</label>
             <div style="clear:both"></div>
         </div>
-        <!-- Implanter l'action reviewLivre -->
+
         <input type="hidden" name="action" value="review">
         <input type="hidden" name="cible" value="<%= u.getId() %>>">
 
