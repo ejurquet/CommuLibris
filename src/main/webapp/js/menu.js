@@ -19,6 +19,9 @@ function removeClass(ele, cls) {
 function init() {
 	removeClass(document.body, "opened");
 	document.getElementById("menu-toggle").addEventListener("click", toggleMenu);
+	document.querySelectorAll(".nav ul li a").forEach(item => {
+		item.addEventListener('click', toggleMenu)
+	});
 }
 
 //The actual fuction

@@ -8,4 +8,22 @@
 	font-weight: bold;
 	border-radius: $radius;
 	cursor: pointer;
+	text-decoration: none;
+
+	& svg {
+		fill: $color;
+		margin-right: 10px;
+		vertical-align: middle;
+		top: 0;
+		font-size: 1.5em;
+	}
+}
+
+.btn {
+	@include btn(white, $green);
+}
+
+.buttons {
+	display: flex;
+	justify-content: space-around;
 }

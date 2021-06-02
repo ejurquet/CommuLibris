@@ -7,25 +7,33 @@
   Utilisateur u = (Utilisateur) request.getAttribute("utilisateur");
 %>
 
-<div class="title">
-  <span class="color-blue"><%= u.getPseudonyme() %></span>
-</div>
+<article class="profile">
 
-<h2><span class="color-grey">Ses livres</span></h2>
-
-<% for (Livre l : u.getLivres()) { %>
-<a href="controler?livreId=<%= l.getId() %>&action=getLivre">
-  <div class="card">
-    <img src="<%= l.getImageUrl() %>" alt="<%= l.getNom() %>">
-    <%= l.getNom() %>
+  <div class="title">
+    <span class="color-blue">#<%= u.getPseudonyme() %></span>
   </div>
-</a>
-<% } %>
 
-<h2><span class="color-grey">Ses avis reçus</span></h2>
+  <section class="">
 
-<a href="controler/target=<%= u.getId() %>&action=requestAddAvis">Donner un avis</a>
+    <h2>Ajoutés récemment :</h2>
 
-<h2><span class="color-grey">Ses avis donnés</span></h2>
+    <div class="cards">
+      <% for (Livre l : u.getLivres()) { %>
+      <div class="card">
+        <a href="controler?livreId=<%= l.getId() %>&action=getLivre">
+          <img src="<%= l.getImageUrl() %>" alt="<%= l.getNom() %>">
+        </a>
+      </div>
+      <% } %>
+    </div>
+
+  </section>
+
+  <div class="buttons">
+    <a class="btn" href="controler?action=requestAddAvis&cible=<%= u.getId() %>">Donner un avis</a>
+    <a class="btn" href="controler?action=requestAddMessage&cible=<%= u.getId() %>">Envoyer un message</a>
+  </div>
+
+</article>
 
 <%@include file="end.jsp"%>

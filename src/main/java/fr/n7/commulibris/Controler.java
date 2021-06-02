@@ -105,7 +105,7 @@ public class Controler extends HttpServlet {
         Utilisateur utilisateur = this.f.authenticateUtilisateur(pseudonyme, mdp);
 
         // Envoyer la réponse
-        if (utilisateur.getId() >= 0) {
+        if (utilisateur != null) {
             // Ajouter un cookie relatif à l'authentificationZ
             HttpSession session = req.getSession();
             session.setAttribute("utilisateur", utilisateur);

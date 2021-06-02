@@ -195,6 +195,30 @@ nav.pagination ul a[aria-current=page] {
   font-weight: bold;
 }
 
+.btn {
+  margin: 1rem auto;
+  padding: 15px;
+  color: white;
+  background-color: #9cdaa5;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn svg {
+  fill: white;
+  margin-right: 10px;
+  vertical-align: middle;
+  top: 0;
+  font-size: 1.5em;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
 article form {
   margin: 0 auto;
   max-width: 400px;
@@ -236,6 +260,14 @@ article form .cover_label {
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
+  text-decoration: none;
+}
+article form .cover_label svg {
+  fill: white;
+  margin-right: 10px;
+  vertical-align: middle;
+  top: 0;
+  font-size: 1.5em;
 }
 article form .cover_label svg {
   fill: white;
@@ -262,6 +294,14 @@ article form button {
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
+  text-decoration: none;
+}
+article form button svg {
+  fill: white;
+  margin-right: 10px;
+  vertical-align: middle;
+  top: 0;
+  font-size: 1.5em;
 }
 
 .rate:not(:checked) > input {
@@ -364,7 +404,7 @@ body.opened #menu-toggle {
 .nav {
   position: fixed;
   top: 0;
-  width: 20%;
+  width: 80%;
   height: 100%;
   display: grid;
   /* justify-content: center; */
@@ -407,7 +447,11 @@ body.opened #menu-toggle {
 }
 
 .opened .nav {
-  transform: translateX(80vw);
+  transform: translateX(20vw);
+}
+
+article p {
+  margin: 1rem;
 }
 
 section > h2 {

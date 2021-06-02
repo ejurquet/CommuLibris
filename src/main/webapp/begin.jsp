@@ -55,7 +55,7 @@
         <li>
             <a href="controler?action=accessProfil">
                 <svg class="icon"><use xlink:href="icons/icons.svg#user"></use></svg>
-                <span>Voir son profil</span>
+                <span>Voir mon profil</span>
             </a>
         </li>
         <li>

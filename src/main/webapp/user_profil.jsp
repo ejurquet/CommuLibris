@@ -7,32 +7,35 @@
     Utilisateur u = (Utilisateur) request.getAttribute("utilisateur");
 %>
 
-<div class="title">
-    <span class="color-blue"><%= u.getPseudonyme() %></span>
-</div>
+<article class="profile">
 
-<h2><span class="color-grey">Vos livres</span></h2>
+    <div class="title">
+        Bienvenue <span class="color-blue">#<%= u.getPseudonyme() %></span>
+    </div>
 
-<% for (Livre l : u.getLivres()) { %>
-    <a href="controler?livreId=<%= l.getId() %>&action=getLivre">
-        <div class="card">
-            <img src="<%= l.getImageUrl() %>" alt="<%= l.getNom() %>">
-            <%= l.getNom() %>
+    <section class="">
+
+        <h2>Vos livres :</h2>
+
+        <div class="cards">
+            <% for (Livre l : u.getLivres()) { %>
+            <div class="card">
+                <a href="controler?livreId=<%= l.getId() %>&action=getLivre">
+                    <img src="<%= l.getImageUrl() %>" alt="<%= l.getNom() %>">
+                </a>
+            </div>
+            <% } %>
         </div>
-    </a>
-<% } %>
 
-<a href="book_add.jsp">
-    <svg class="icon"><use xlink:href="icons/icons.svg#book"></use></svg>
-    <span>Ajouter un livre</span>
-</a>
+    </section>
 
-<h2><span class="color-grey">Vos avis reçus</span></h2>
+    <div class="buttons">
+        <a class="btn" href="book_add.jsp">
+            <svg class="icon"><use xlink:href="icons/icons.svg#book"></use></svg>
+            <span>Ajouter un livre</span>
+        </a>
+    </div>
 
-<!--
-    A faire :
-        style
-        avis correctement
--->
+</article>
 
 <%@include file="end.jsp"%>
