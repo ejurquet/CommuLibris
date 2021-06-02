@@ -1,4 +1,4 @@
-<%@ page pageEncoding="UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" language="java" %>
 <%@include file="begin.jsp"%>
 
 <div class="title">
