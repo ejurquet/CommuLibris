@@ -42,6 +42,12 @@
                 <span>Se connecter</span>
             </a>
         </li>
+        <li>
+            <a href="controler?action=accessProfil">
+                <svg class="icon"><use xlink:href="icons/icons.svg#user"></use></svg>
+                <span>Voir son profil</span>
+            </a>
+        </li>
 
 
         <!--
