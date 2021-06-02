@@ -20,7 +20,7 @@
 
         <p><%= livre.getDescription() %></p>
 
-        <h2>Prêté par <span class="color-blue">#<%= livre.getProprietaire().getPseudonyme() %></span></h2>
+        <h2>Prêté par <a class="color-blue" href="controler?action=accessOtherProfil&cible=<%= livre.getProprietaire().getId() %>">#<%= livre.getProprietaire().getPseudonyme() %></a></h2>
 
         <img src="" alt="">
 
