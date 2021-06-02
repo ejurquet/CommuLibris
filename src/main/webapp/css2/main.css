@@ -197,10 +197,10 @@ nav.pagination ul a[aria-current=page] {
 
 .btn {
   margin: 1rem auto;
-  padding: 15px;
+  padding: 1rem 2rem;
   color: white;
   background-color: #9cdaa5;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
@@ -217,6 +217,15 @@ nav.pagination ul a[aria-current=page] {
 .buttons {
   display: flex;
   justify-content: space-around;
+}
+.buttons .btn:nth-child(3n+1) {
+  background-color: #8080ff;
+}
+.buttons .btn:nth-child(3n+2) {
+  background-color: #9cdaa5;
+}
+.buttons .btn:nth-child(3n+3) {
+  background-color: #ffb883;
 }
 
 article form {
@@ -253,10 +262,10 @@ article form input[type=text]::placeholder, article form input[type=password]::p
 }
 article form .cover_label {
   margin: 1rem auto;
-  padding: 15px;
+  padding: 1rem 2rem;
   color: white;
   background-color: #8080ff;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
@@ -287,10 +296,10 @@ article form button {
   margin: 0 auto;
   width: 100%;
   margin: 1rem auto;
-  padding: 15px;
+  padding: 1rem 2rem;
   color: white;
   background-color: #9cdaa5;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
