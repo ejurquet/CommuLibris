@@ -31,6 +31,7 @@
 
   </section>
 
+  <% if(!u.getAvisRecu().isEmpty()) { %>
   <section>
 
     <h2>Avis reçus :</h2>
@@ -51,7 +52,9 @@
       <% } %>
     </table>
   </section>
+  <% } %>
 
+  <% if(!u.getAvisRecu().isEmpty()) { %>
   <section>
 
     <h2>Avis donnés :</h2>
@@ -72,6 +75,7 @@
       <% } %>
     </table>
   </section>
+  <% } %>
 
   <% if(request.getSession().getAttribute("utilisateur") != null) { %>
   <div class="buttons">

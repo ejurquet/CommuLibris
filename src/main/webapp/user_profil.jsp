@@ -38,6 +38,7 @@
         </a>
     </div>
 
+    <% if(!u.getConversations().isEmpty()) { %>
     <section>
 
         <h2>Conversations :</h2>
@@ -62,7 +63,9 @@
             <% } %>
         </table>
     </section>
+    <% } %>
 
+    <% if(!u.getAvisRecu().isEmpty()) { %>
     <section>
 
         <h2>Avis reçus :</h2>
@@ -83,7 +86,9 @@
             <% } %>
         </table>
     </section>
+    <% } %>
 
+    <% if(!u.getAvisDonnes().isEmpty()) { %>
     <section>
 
         <h2>Avis donnés :</h2>
@@ -104,6 +109,7 @@
             <% } %>
         </table>
     </section>
+    <% } %>
 
 </article>
 
