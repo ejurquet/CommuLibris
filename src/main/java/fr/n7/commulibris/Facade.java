@@ -22,8 +22,8 @@ public class Facade {
     private final static String UTILISATEUR_PSEUDO_MDP_QUERY = "FROM Utilisateur WHERE pseudonyme = :spseudonyme AND mdp = :smdp";
     private final static String ALL_LIVRES_QUERY = "FROM Livre";
     private final static String ALL_UTILISATEURS_QUERY = "FROM Utilisateur";
-    private final static String LIVRES_NAME_QUERY = "FROM Livre WHERE nom LIKE :snom";
-    private final static String LIVRES_AUTHOR_QUERY = "FROM Livre WHERE auteur LIKE :sauteur";
+    private final static String LIVRES_NAME_QUERY = "FROM Livre WHERE UPPER(nom) LIKE UPPER(:snom)";
+    private final static String LIVRES_AUTHOR_QUERY = "FROM Livre WHERE UPPER(auteur) LIKE UPPER(:sauteur)";
     private final static String COUNT_LIVRES_QUERY = "SELECT count(1) FROM Livre";
     private final static String COUNT_UTILISATEURS_QUERY = "SELECT count(1) FROM Utilisateur";
     private final static String LATEST_LIVRES = "FROM Livre ORDER BY id DESC";
