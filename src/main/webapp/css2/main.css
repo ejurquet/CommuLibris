@@ -445,6 +445,7 @@ body.opened #menu-toggle {
   /* justify-content: center; */
   align-content: center;
   background-color: #37373c;
+  z-index: 1000;
 }
 
 .nav ul {

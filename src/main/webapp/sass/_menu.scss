@@ -11,6 +11,8 @@
   align-content: center;
 
   background-color: $black;
+
+  z-index: 1000;
 }
 .nav ul {
   margin: $v-margin;
