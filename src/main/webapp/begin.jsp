@@ -59,13 +59,13 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="controler?action=accessProfil">
                 <svg class="icon"><use xlink:href="icons/icons.svg#message"></use></svg>
                 <span>Messages</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="controler?action=accessProfil">
                 <svg class="icon"><use xlink:href="icons/icons.svg#book"></use></svg>
                 <span>Mes livres</span>
             </a>
