@@ -25,7 +25,7 @@
         <img src="" alt="">
 
         <div class="buttons">
-            <a class="contact btn" href="controler?action=accesConversation&cible=<%= livre.getProprietaire().getId() %>">Contacter</a>
+            <a class="contact btn" href="controler?action=requestStartConv&cible=<%= livre.getProprietaire().getId() %>">Contacter</a>
             <a class="borrow btn" href="controler?action=accessOtherProfil&cible=<%= livre.getProprietaire().getId() %>">Voir le profil</a>
         </div>
     </section>
