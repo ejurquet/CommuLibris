@@ -143,10 +143,13 @@ public class Controler extends HttpServlet {
      */
     private final Action actionLogoutUtilisateur = (req, rep) -> {
         HttpSession session = req.getSession(false);
+
         if (session != null) {
             session.removeAttribute("utilisateur");
         }
-        rep.sendRedirect("");
+
+        RequestDispatcher rd = req.getRequestDispatcher("user_signup.jsp"); // Redirection vers cette page
+        rd.forward(req, rep);
     };
 
     /**
